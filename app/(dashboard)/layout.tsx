@@ -6,15 +6,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) redirect('/login')
+  const bypass = process.env.NEXT_PUBLIC_DEV_BYPASS === 'true'
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
+  if (!user && !bypass) redirect('/login')
 
-  if (profile && !profile.onboarding_completed) {
+  const { data: profile } = user
+    ? await supabase.from('profiles').select('*').eq('id', user.id).single()
+    : { data: null }
+
+  if (!bypass && profile && !profile.onboarding_completed) {
     redirect('/onboarding')
   }
 

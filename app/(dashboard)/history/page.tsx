@@ -9,14 +9,14 @@ import { BarChart3, Clock, CheckCircle2, XCircle, ArrowRight } from 'lucide-reac
 export default async function HistoryPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user && process.env.NEXT_PUBLIC_DEV_BYPASS !== "true") redirect("/login")
 
-  const { data: sessions } = await supabase
+  const { data: sessions } = user ? await supabase
     .from('sessions')
     .select('*, job_descriptions(company_name, role_subtype, company_tier), session_scores(overall_score, communication_score, technical_depth)')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false })
-    .limit(50)
+    .limit(50) : { data: [] }
 
   const ROUND_COLORS: Record<string, string> = {
     technical: 'text-blue-400 bg-blue-500/10 border-blue-500/20',

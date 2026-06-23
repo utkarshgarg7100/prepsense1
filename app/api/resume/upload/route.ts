@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     if (uploadError) {
       return NextResponse.json<ApiResponse<null>>(
-        { data: null, error: 'Failed to upload file' },
+        { data: null, error: `Failed to upload file: ${uploadError.message}` },
         { status: 500 }
       )
     }
@@ -64,10 +64,10 @@ export async function POST(request: NextRequest) {
       const arrayBuffer = await file.arrayBuffer()
       const buffer = Buffer.from(arrayBuffer)
       const pdfData = await pdfParse(buffer)
-      parsedText = pdfData.text
+      parsedText = pdfData.text ?? ''
     } catch (pdfErr) {
       console.error('PDF parse error:', pdfErr)
-      // Continue with empty text — user can manually trigger re-parse
+      // Continue with empty text — AI parse step can still extract from URL
     }
 
     // Deactivate existing active resumes
@@ -78,11 +78,12 @@ export async function POST(request: NextRequest) {
       .eq('is_active', true)
 
     // Create resume record
-    const { data: resumeRecord, error: dbError } = await supabase
+    const { data: resume, error: dbError } = await supabase
       .from('resumes')
       .insert({
         user_id: user.id,
         file_url: urlData.publicUrl,
+        file_name: file.name,
         parsed_text: parsedText,
         is_active: true,
       })
@@ -91,15 +92,12 @@ export async function POST(request: NextRequest) {
 
     if (dbError) {
       return NextResponse.json<ApiResponse<null>>(
-        { data: null, error: 'Failed to save resume record' },
+        { data: null, error: `Failed to save resume record: ${dbError.message}` },
         { status: 500 }
       )
     }
 
-    return NextResponse.json<ApiResponse<{ resume_id: string; has_text: boolean }>>({
-      data: { resume_id: resumeRecord.id, has_text: parsedText.length > 100 },
-      error: null,
-    })
+    return NextResponse.json({ data: { resume }, error: null })
   } catch (err) {
     console.error('Upload error:', err)
     return NextResponse.json<ApiResponse<null>>(

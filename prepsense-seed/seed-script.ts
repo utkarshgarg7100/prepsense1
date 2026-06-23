@@ -10,10 +10,12 @@
  *   - All database migrations run
  */
 
-import 'dotenv/config'
+import dotenv from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
 import * as fs from 'fs'
 import * as path from 'path'
+
+dotenv.config({ path: path.join(__dirname, '..', '.env') })
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -81,15 +83,21 @@ async function seedCompanyProfiles() {
         hq: company.hq || null,
         size: company.size || null,
         culture_values: company.culture_values,
-        interview_style: company.interview_style,
+        interview_style: Array.isArray(company.interview_style)
+          ? company.interview_style.join(' ')
+          : company.interview_style,
         what_they_look_for: company.what_they_look_for,
         red_flags_for_them: company.red_flags_for_them,
         hr_round_focus: company.hr_round_focus,
         sample_hr_questions: company.sample_hr_questions,
-        founders_round_focus: company.founders_round_focus,
+        founders_round_focus: Array.isArray(company.founders_round_focus)
+          ? company.founders_round_focus.join(' ')
+          : company.founders_round_focus,
         key_products: company.key_products,
         competitors: company.competitors,
-        recent_news_to_know: company.recent_news_to_know
+        recent_news_to_know: Array.isArray(company.recent_news_to_know)
+          ? company.recent_news_to_know
+          : [company.recent_news_to_know],
       }, { onConflict: 'id' })
     if (error) console.error(`❌ Error seeding company ${company.id}:`, error.message)
     else console.log(`  ✅ ${company.name}`)
@@ -111,8 +119,9 @@ async function seedBadges() {
         icon: badge.icon,
         category: badge.category,
         condition_type: badge.condition_type,
-        condition_value: badge.condition_value,
-        condition_metric: badge.condition_metric || null,
+        condition_value: typeof badge.condition_value === 'number' ? badge.condition_value : 0,
+        condition_metric: badge.condition_metric
+          ?? (typeof badge.condition_value === 'string' ? badge.condition_value : null),
         condition_count: badge.condition_count || null,
         rarity: badge.rarity
       }, { onConflict: 'id' })

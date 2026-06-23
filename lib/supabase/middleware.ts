@@ -35,6 +35,10 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute = authRoutes.some(r => pathname.startsWith(r))
   const isProtectedRoute = protectedRoutes.some(r => pathname.startsWith(r))
 
+  if (process.env.NEXT_PUBLIC_DEV_BYPASS === 'true') {
+    return supabaseResponse
+  }
+
   if (!user && isProtectedRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'

@@ -51,13 +51,15 @@ export default function OnboardingPage() {
 
       const { error } = await supabase
         .from('profiles')
-        .update({
+        .upsert({
+          id: user.id,
+          email: user.email ?? '',
+          full_name: user.user_metadata?.full_name ?? null,
           target_roles: selectedRoles,
           target_companies: selectedCompanies,
           experience_level: experienceLevel,
           onboarding_completed: true,
-        })
-        .eq('id', user.id)
+        }, { onConflict: 'id' })
 
       if (error) { toast.error('Failed to save preferences'); return }
       router.push('/dashboard')

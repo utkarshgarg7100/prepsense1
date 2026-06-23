@@ -42,6 +42,9 @@ CREATE TABLE IF NOT EXISTS app_config (
   updated_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Add file_name to resumes (original schema omitted it)
+ALTER TABLE resumes ADD COLUMN IF NOT EXISTS file_name TEXT NOT NULL DEFAULT '';
+
 -- Add columns to badges that the seed data includes but the original schema lacks
 ALTER TABLE badges
   ADD COLUMN IF NOT EXISTS condition_metric TEXT,
