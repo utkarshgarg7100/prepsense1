@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS company_culture_profiles (
   name                  TEXT NOT NULL,
   tier                  company_tier,
   industry              TEXT,
-  founded               TEXT,
-  hq                    TEXT,
-  size                  TEXT,
+  founded               TEXT,  -- year founded, e.g. "2014"
+  hq                    TEXT,  -- headquarters city
+  size                  TEXT,  -- employee count range e.g. "5000-10000"
   culture_values        TEXT[],
   interview_style       TEXT[],
   what_they_look_for    TEXT[],
