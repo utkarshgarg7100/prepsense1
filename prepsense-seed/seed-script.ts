@@ -25,6 +25,15 @@ async function loadJSON(filename: string) {
   return JSON.parse(fs.readFileSync(filepath, 'utf-8'))
 }
 
+const ROLE_TYPE_MAP: Record<string, string> = {
+  software_engineering: 'Software Engineering',
+  product_management: 'Product Management',
+  business_strategy: 'Business & Strategy',
+  design: 'Design',
+  data_analytics: 'Data & Analytics',
+  operations: 'Operations',
+}
+
 async function seedJobDescriptions() {
   console.log('🌱 Seeding job descriptions...')
   const seJDs = await loadJSON('jd/software-engineering.json')
@@ -37,7 +46,7 @@ async function seedJobDescriptions() {
       .from('job_descriptions')
       .upsert({
         id: jd.id,
-        role_type: jd.role_type,
+        role_type: ROLE_TYPE_MAP[jd.role_type] ?? jd.role_type,
         role_subtype: jd.role_subtype,
         company_name: jd.company_name,
         company_tier: jd.company_tier,
