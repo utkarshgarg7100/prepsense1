@@ -1,0 +1,262 @@
+[
+  {
+    "company_name": "Google",
+    "culture_values": ["Innovation at scale", "Data-driven decision making", "Intellectual humility", "User-first thinking", "Collaboration across functions"],
+    "interview_style": "Highly structured; heavy algorithmic coding (LeetCode hard), system design at massive scale, behavioral questions using the STAR method. Expect 5-6 rounds with multiple interviewers. Rubric-based scoring.",
+    "what_they_look_for": [
+      "Algorithmic depth and problem-solving under pressure",
+      "Ability to design systems that serve billions of users",
+      "Clear, structured communication of technical trade-offs",
+      "Demonstrated intellectual curiosity and continuous learning",
+      "Collaborative mindset with low ego"
+    ],
+    "red_flags_for_them": [
+      "Brute-force solutions without optimization discussion",
+      "No follow-up questions about scale or requirements",
+      "Inability to explain trade-offs clearly",
+      "Poor communication during collaborative problem-solving",
+      "Overconfidence without substantiation"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you disagreed with a technical decision and how you handled it.",
+      "Describe a project where you had to learn something completely new quickly. What was your approach?",
+      "Tell me about the most complex system you designed. What trade-offs did you make?",
+      "How do you approach a problem where there's no clear right answer?",
+      "Tell me about a time you failed. What did you learn and what would you do differently?"
+    ]
+  },
+  {
+    "company_name": "Meta",
+    "culture_values": ["Move fast", "Bold decisions", "Be open", "Focus on long-term impact", "Build social value"],
+    "interview_style": "Fast-paced, data-heavy interviews. Expect coding rounds with an emphasis on speed and optimal solutions, system design rounds focused on social-scale problems, and behavioral rounds that probe for bold decisions and impact. Cross-functional collaboration is assessed heavily.",
+    "what_they_look_for": [
+      "Bias for action and speed of execution",
+      "Data-driven thinking — can you define and track the right metrics?",
+      "Ability to work independently and make decisions under ambiguity",
+      "Track record of shipping high-impact work quickly",
+      "Comfort with experimentation and learning from failure"
+    ],
+    "red_flags_for_them": [
+      "Analysis paralysis or over-engineering",
+      "Inability to define success metrics for your work",
+      "Taking credit for team work ('we' when individual contribution is expected)",
+      "Resistance to fast iteration or A/B testing mindset",
+      "Not asking about user or business impact"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you had to make a decision with incomplete data. What did you do?",
+      "Describe a time you shipped something fast but imperfectly. How did you handle the aftermath?",
+      "Tell me about a project where you had significant business impact. How did you measure it?",
+      "How do you prioritize when everything seems urgent?",
+      "Tell me about a time you pushed back on a decision from someone senior. What happened?"
+    ]
+  },
+  {
+    "company_name": "Razorpay",
+    "culture_values": ["Customer trust above all", "Ownership and accountability", "Speed with quality", "First-principles thinking", "Transparency"],
+    "interview_style": "Problem-solving focused, with a strong emphasis on technical depth for engineering roles and business acumen for non-technical roles. Expect take-home assignments. Culture fit assessed through scenario-based questions about ownership.",
+    "what_they_look_for": [
+      "Deep ownership mentality — 'it's not my job' is a red flag",
+      "Ability to build systems that financial institutions trust",
+      "First-principles approach to problem-solving",
+      "Customer empathy, especially for merchant pain points",
+      "Speed with quality — not just fast, but reliable"
+    ],
+    "red_flags_for_them": [
+      "Passing blame to other teams for failures",
+      "Not thinking about security or compliance implications",
+      "Lack of specific metrics or outcomes from past work",
+      "Generic answers about 'fintech is exciting' without domain knowledge",
+      "Inability to explain trade-offs between reliability and speed"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time when a system you built failed in production. What was your response?",
+      "Describe a time you went far beyond your job description to solve a customer problem.",
+      "Tell me about a time you had to make a trade-off between speed and reliability.",
+      "How do you stay updated with the fintech/payments ecosystem in India?",
+      "Tell me about a time you identified a risk that others had overlooked."
+    ]
+  },
+  {
+    "company_name": "Flipkart",
+    "culture_values": ["Customer obsession", "Innovation in Indian context", "Bias for action", "Data-driven culture", "Inclusion"],
+    "interview_style": "Amazon-style leadership principle interviews combined with technical depth. Heavy emphasis on scale (India's largest e-commerce company). System design questions often involve e-commerce-specific scenarios.",
+    "what_they_look_for": [
+      "Ability to solve India-scale problems (connectivity, language, payment diversity)",
+      "Data literacy and habit of measuring impact",
+      "Bias for action over deliberation",
+      "Customer empathy for India's diverse users",
+      "Technical depth combined with business awareness"
+    ],
+    "red_flags_for_them": [
+      "Solutions designed only for metro/premium users",
+      "Inability to articulate customer impact of their work",
+      "No ownership of failure or lessons learned",
+      "Generic solutions without India-specific context",
+      "Poor understanding of scale requirements"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you built something specifically for a unique customer segment.",
+      "Describe your most impactful project. How did you define and measure impact?",
+      "Tell me about a time you had to influence a team you didn't manage.",
+      "How do you approach problems that have never been solved before in your industry?",
+      "Tell me about a disagreement you had with a peer. How was it resolved?"
+    ]
+  },
+  {
+    "company_name": "Swiggy",
+    "culture_values": ["Customer delight", "Experimentation culture", "Data-driven decisions", "Speed and agility", "Ownership"],
+    "interview_style": "Case studies + behavioral + technical (for engineering). Product and ops roles involve live problem-solving. Emphasis on first-principles thinking and handling real-world logistics complexity.",
+    "what_they_look_for": [
+      "Strong analytical thinking with structured communication",
+      "Ability to think about systems with real-world physical constraints",
+      "Comfort with ambiguity and ability to execute without perfect information",
+      "Passion for consumer products and delightful experiences",
+      "Track record of experimentation and learning"
+    ],
+    "red_flags_for_them": [
+      "Solutions that don't account for operational feasibility",
+      "Inability to back ideas with data or logic",
+      "Over-reliance on gut without validation",
+      "Not thinking about unit economics or sustainability",
+      "Lack of examples of adapting quickly to changing requirements"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you had to solve a problem with very limited resources.",
+      "Describe a time you had to change direction mid-project. How did you manage the transition?",
+      "Tell me about a time you identified a metric that was misleading the team.",
+      "How do you approach decisions where speed and precision are both critical?",
+      "Tell me about a time you had to align multiple stakeholders with conflicting interests."
+    ]
+  },
+  {
+    "company_name": "Groww",
+    "culture_values": ["Financial inclusion", "Radical transparency", "Data-driven to the core", "Ownership at every level", "User trust"],
+    "interview_style": "Highly metric-focused interviews. Expect to be asked 'what was the impact?' repeatedly. Strong emphasis on data analysis skills even for product and engineering. Case studies for analytical roles.",
+    "what_they_look_for": [
+      "Metric obsession — can you define, track, and move numbers?",
+      "Deep user empathy for first-time investors",
+      "Ability to make complex finance simple and accessible",
+      "Strong ownership and accountability culture",
+      "Comfort with high-stakes, reliability-critical systems"
+    ],
+    "red_flags_for_them": [
+      "Inability to quantify the impact of your work",
+      "Not thinking about trust and regulatory implications",
+      "Solutions that exclude non-sophisticated users",
+      "Blame-shifting when things go wrong",
+      "Lack of understanding of financial products"
+    ],
+    "example_hr_questions": [
+      "Tell me about a project where you moved a key business metric significantly. How did you do it?",
+      "Describe a time when user trust was at stake in your work. How did you handle it?",
+      "Tell me about a time you had to make a trade-off between user experience and regulatory compliance.",
+      "How do you think about building for users who have never invested before?",
+      "Tell me about a time you caught a critical bug or data error before it reached users."
+    ]
+  },
+  {
+    "company_name": "PhonePe",
+    "culture_values": ["Financial empowerment for all Indians", "Ownership and accountability", "Think big, start small", "Customer trust", "Speed"],
+    "interview_style": "Mix of technical depth, product thinking, and execution capability. Leadership principle questions similar to Amazon. High emphasis on India-specific financial ecosystem knowledge for all roles.",
+    "what_they_look_for": [
+      "Understanding of India's financial ecosystem (UPI, banking, insurance)",
+      "Ability to build products for 500 million users with diverse needs",
+      "Strong execution track record — not just strategy, but delivery",
+      "Ownership of outcomes, including negative ones",
+      "Comfort operating in a regulated, trust-critical environment"
+    ],
+    "red_flags_for_them": [
+      "Shallow knowledge of India's payments/financial ecosystem",
+      "Solutions that don't account for rural or low-literacy users",
+      "Not able to articulate the customer problem being solved",
+      "Lack of ownership language ('the team did...' vs 'I drove...')",
+      "Ignoring regulatory or security considerations"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you built something that had to work for users with very low digital literacy.",
+      "Describe a time when a project you led didn't go as planned. What did you do?",
+      "How do you think about building trust in a financial product?",
+      "Tell me about a time you had to make a decision with significant regulatory implications.",
+      "Why PhonePe specifically, and what do you know about our competitive positioning?"
+    ]
+  },
+  {
+    "company_name": "CRED",
+    "culture_values": ["Design and craft excellence", "High trust, high expectations", "Intellectual honesty", "Unconventional thinking", "Excellence over mediocrity"],
+    "interview_style": "Extremely culture-fit-heavy. CRED hires for attitude and intellectual curiosity as much as skills. Expect philosophical questions about product philosophy, design opinions, and unconventional thinking. They value people with strong, defended opinions.",
+    "what_they_look_for": [
+      "Strong aesthetic sense and design sensibility",
+      "Intellectual curiosity and unconventional thinking",
+      "Ability to have and defend strong opinions",
+      "Excellence orientation — doing fewer things but doing them beautifully",
+      "Genuine interest in the premium user segment"
+    ],
+    "red_flags_for_them": [
+      "Generic, unoriginal ideas or answers",
+      "Inability to articulate a strong personal design or product philosophy",
+      "Lack of taste or aesthetic awareness",
+      "Over-indexing on metrics at the expense of craft",
+      "Applying mass-market thinking to a premium product"
+    ],
+    "example_hr_questions": [
+      "What's a product you think is badly designed that everyone else seems to love? Why?",
+      "Tell me about something you made from scratch that you're genuinely proud of.",
+      "What's your most controversial opinion about product design or technology?",
+      "Describe a time when you disagreed with the majority view. Did you change your mind or hold firm?",
+      "What does 'premium' mean to you in the context of a financial product?"
+    ]
+  },
+  {
+    "company_name": "Amazon",
+    "culture_values": ["Customer obsession", "Ownership", "Invent and simplify", "Think big", "Bias for action", "Frugality", "Earn trust"],
+    "interview_style": "Structured STAR-based behavioral interviews using the 16 Leadership Principles as the explicit rubric. Expect to be asked for very specific examples. Vague or general answers are penalized. Technical roles also include system design.",
+    "what_they_look_for": [
+      "Specific, detailed examples of each Leadership Principle in action",
+      "Working backward from customer needs to technical or product solutions",
+      "Ownership: taking responsibility even when things go wrong",
+      "Frugality: doing more with less",
+      "Data-driven decision making with clear metrics"
+    ],
+    "red_flags_for_them": [
+      "Vague answers without specific examples (they will push for STAR format)",
+      "Collective 'we' language when 'I' ownership is expected",
+      "Not knowing the Amazon Leadership Principles",
+      "Inability to quantify impact with metrics",
+      "Solutions that require significant budget without ROI justification"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you had to make a decision with very little time and incomplete data. (Bias for Action)",
+      "Describe a time when you received critical feedback. How did you respond? (Earn Trust)",
+      "Tell me about a time you invented a creative solution to a problem. (Invent and Simplify)",
+      "Tell me about a time when you helped a customer in an unexpected way. (Customer Obsession)",
+      "Describe a project where you were given very limited resources. How did you prioritize? (Frugality)"
+    ]
+  },
+  {
+    "company_name": "Atlassian",
+    "culture_values": ["Open company, no bullshit", "Build with heart and balance", "Don't #@!% the customer", "Play, as a team", "Be the change you seek"],
+    "interview_style": "Values-driven interviews with an emphasis on collaboration and pragmatism. No LeetCode-hard grinding — Atlassian values practical problem-solving. Expect a take-home challenge and values-alignment discussions.",
+    "what_they_look_for": [
+      "Genuine team-player mentality, not just lip service",
+      "Ability to disagree and commit — can they challenge ideas respectfully?",
+      "Pragmatic, customer-focused decision making",
+      "Transparency and intellectual honesty",
+      "Ability to work effectively in a distributed, async-first environment"
+    ],
+    "red_flags_for_them": [
+      "Competitiveness that undermines team dynamics",
+      "Overpromising or hiding bad news",
+      "Inability to work asynchronously",
+      "Dismissiveness of customer pain points",
+      "Answers that feel too polished or rehearsed — Atlassian wants authenticity"
+    ],
+    "example_hr_questions": [
+      "Tell me about a time you had to deliver difficult feedback to a colleague. How did you do it?",
+      "Describe a time when you had to work with someone whose working style was very different from yours.",
+      "Tell me about a time when company values conflicted with a business decision. What did you do?",
+      "How do you maintain work-life balance when you're under deadline pressure?",
+      "Tell me about a time you were transparent about a failure or mistake. What happened?"
+    ]
+  }
+]

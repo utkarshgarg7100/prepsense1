@@ -1,0 +1,13 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "functions": {
+    "app/api/resume/upload/route.ts": { "maxDuration": 30 },
+    "app/api/interview/start/route.ts":    { "maxDuration": 60 },
+    "app/api/interview/answer/route.ts":   { "maxDuration": 60 },
+    "app/api/interview/complete/route.ts": { "maxDuration": 120 },
+    "app/api/interview/transcribe/route.ts": { "maxDuration": 30 }
+  }
+}

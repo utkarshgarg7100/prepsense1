@@ -1,0 +1,28 @@
+[
+  {
+    "id": "jd-cred-data-scientist",
+    "role_type": "Data & Analytics",
+    "role_subtype": "Data Scientist",
+    "company_name": "CRED",
+    "company_tier": "Indian Unicorn",
+    "industry": "Fintech / Credit",
+    "required_skills": ["Python", "SQL", "Machine Learning", "Statistics", "Feature Engineering", "Model Evaluation", "Pandas", "Scikit-learn", "Experimentation"],
+    "nice_to_have_skills": ["Credit Scoring", "XGBoost", "LightGBM", "NLP", "PySpark", "dbt", "Looker"],
+    "culture_tags": ["high-trust", "design-obsessed", "data-driven", "exclusivity", "ownership", "innovation"],
+    "is_sample": true,
+    "jd_text": "About CRED\n\nCRED is a members-only platform for India's most creditworthy individuals. Our members pay their credit card bills on CRED and get rewarded. We've expanded into lending (CRED Cash), travel, commerce, and P2P lending. Our data is unique: we have rich financial behavior data from India's highest-quality credit segment.\n\nAbout the Role\n\nData Scientist on the Credit & Risk team. You'll build models that make real lending decisions — who gets credit, how much, and at what rate. Your models will directly determine CRED's loan book quality and member experience. This is not a research role; your models go live within weeks.\n\nResponsibilities\n\n• Build and deploy credit scoring models for personal loans and BNPL products\n• Develop fraud detection models using transaction patterns, behavioral signals, and bureau data\n• Design A/B experiments for pricing, credit limits, and collection strategies\n• Conduct rigorous EDA and feature engineering on credit bureau, transaction, and behavioral data\n• Monitor model performance in production; detect and respond to model drift\n• Collaborate with risk, collections, and product teams to translate business requirements into models\n• Maintain documentation and model cards for all production models\n\nMinimum Qualifications\n\n• 3+ years of data science experience\n• Strong Python and SQL proficiency\n• Experience building supervised ML models end-to-end (classification, regression)\n• Understanding of statistical concepts: hypothesis testing, confidence intervals, distributions\n• Experience with model evaluation: AUC-ROC, KS statistic, Gini coefficient, lift curves\n• Ability to communicate complex findings clearly to non-technical stakeholders\n\nPreferred Qualifications\n\n• Experience in credit scoring, risk modeling, or financial data science\n• Familiarity with credit bureau data (CIBIL, Experian)\n• Experience with gradient boosting frameworks (XGBoost, LightGBM, CatBoost)\n• Knowledge of RBI guidelines on algorithmic lending\n• Experience with challenger/champion model deployment\n\nWhat We Offer\n\nCompetitive salary, ESOPs, a beautiful workspace, and uniquely rich financial data that makes for genuinely interesting data science work."
+  },
+  {
+    "id": "jd-zomato-data-analyst",
+    "role_type": "Data & Analytics",
+    "role_subtype": "Data Analyst",
+    "company_name": "Zomato",
+    "company_tier": "Indian Unicorn",
+    "industry": "Food Delivery / Technology",
+    "required_skills": ["SQL", "Python", "Excel", "Tableau", "Metrics Definition", "Business Analysis", "A/B Testing", "Stakeholder Communication"],
+    "nice_to_have_skills": ["dbt", "BigQuery", "Looker", "Statistics", "Pandas", "Food Tech Domain"],
+    "culture_tags": ["customer-obsessed", "data-driven", "fast-paced", "ownership", "impact", "frugal"],
+    "is_sample": true,
+    "jd_text": "About Zomato\n\nZomato delivers food, grocery, and more to millions of customers across India. We're a data-first company — every major decision at Zomato is backed by data. Our analytics team is embedded across product, operations, and finance, making data a first-class citizen in every team's decision-making.\n\nAbout the Role\n\nData Analyst for Zomato's Restaurant Partner team. You'll be the analytical backbone for the team that manages 350,000 restaurant partners across India — helping them succeed on Zomato drives our GMV growth. Your insights will shape restaurant onboarding strategies, packaging designs, and pricing experiments.\n\nResponsibilities\n\n• Build and maintain dashboards tracking restaurant partner health: GMV, order count, ratings, churn\n• Analyze restaurant behavior data to identify at-risk partners and growth opportunities\n• Design and analyze A/B experiments on restaurant visibility, packaging, and pricing\n• Write complex SQL queries to extract, transform, and analyze large datasets\n• Prepare weekly and monthly business reviews with clear insights and recommendations\n• Work with product and operations to translate data findings into actionable initiatives\n• Develop self-serve analytics tools for business stakeholders\n\nMinimum Qualifications\n\n• 2+ years of data analysis experience\n• Expert SQL skills: window functions, CTEs, complex joins, performance optimization\n• Experience with data visualization tools (Tableau, Looker, or similar)\n• Ability to translate business questions into analytical frameworks\n• Strong communication skills: can explain data insights to non-technical audiences\n• Attention to detail and statistical rigor\n\nPreferred Qualifications\n\n• Experience in food-tech, e-commerce, or marketplace analytics\n• Python/Pandas proficiency for data manipulation\n• Familiarity with dbt or data modeling best practices\n• Experience with BigQuery or similar cloud data warehouses\n• Prior experience defining metrics and building dashboards from scratch\n\nWhat We Offer\n\nCompetitive salary, ESOPs, flexible work from home, free Zomato Pro subscription, comprehensive health coverage, and the opportunity to shape how India eats."
+  }
+]
