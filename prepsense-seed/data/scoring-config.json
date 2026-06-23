@@ -1,0 +1,253 @@
+{
+  "metrics": {
+    "technical_round": [
+      {
+        "id": "technical_depth",
+        "label": "Technical Depth",
+        "description": "Accuracy, specificity, and density of domain-specific knowledge in answers",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["specific tool names", "accurate technical terminology", "numbers and benchmarks", "trade-off awareness", "failure mode awareness"],
+          "medium": ["general technical direction correct", "some specifics missing", "broad strokes accurate"],
+          "low": ["vague or incorrect technical terms", "no specifics", "conceptual errors", "unable to elaborate when probed"]
+        },
+        "ideal_answer_length": { "min": 150, "max": 400 }
+      },
+      {
+        "id": "problem_decomposition",
+        "label": "Problem Decomposition",
+        "description": "Ability to break complex problems into structured, solvable sub-problems",
+        "weight": 0.15,
+        "scoring_signals": {
+          "high": ["structured approach (numbered steps or clear phases)", "identifies edge cases proactively", "considers failure modes", "asks clarifying questions before jumping to solution"],
+          "medium": ["some structure present", "main cases covered but edge cases missed"],
+          "low": ["jumps to solution immediately", "no structure", "misses obvious sub-problems"]
+        }
+      },
+      {
+        "id": "experience_match",
+        "label": "Experience Match",
+        "description": "How well past experience demonstrates the requirements of this specific JD",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["directly relevant past project", "scale matches or exceeds role requirements", "domain knowledge demonstrated", "specific tools mentioned in JD used in past"],
+          "medium": ["adjacent experience", "transferable skills demonstrated", "scale slightly off"],
+          "low": ["minimal relevant experience", "unable to connect past work to this role"]
+        }
+      },
+      {
+        "id": "gap_awareness",
+        "label": "Gap Awareness",
+        "description": "Honest acknowledgment of skill gaps with constructive framing",
+        "weight": 0.10,
+        "scoring_signals": {
+          "high": ["proactively acknowledges gap", "has a plan to close it", "demonstrates adjacent knowledge", "honest without being self-deprecating"],
+          "medium": ["acknowledges gap when directly asked", "some compensating factor offered"],
+          "low": ["defensive about gap", "claims expertise they don't have", "no awareness of gap"]
+        }
+      },
+      {
+        "id": "scalability_thinking",
+        "label": "Scalability Thinking",
+        "description": "Consideration of scale, edge cases, and system behavior under load",
+        "weight": 0.15,
+        "scoring_signals": {
+          "high": ["specific scale numbers considered", "bottleneck identification", "failure mode discussion", "horizontal vs vertical scaling tradeoffs"],
+          "medium": ["mentions scale as a consideration", "some specific concern raised"],
+          "low": ["no consideration of scale", "solves for current state only"]
+        }
+      }
+    ],
+    "founders_round": [
+      {
+        "id": "business_acumen",
+        "label": "Business Acumen",
+        "description": "Understanding of metrics, business models, growth levers, and unit economics",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["specific business metrics mentioned (CAC, LTV, GMV, NPS)", "understands business model deeply", "connects technical decisions to business outcomes", "can discuss competitive landscape"],
+          "medium": ["general business understanding", "some metrics awareness"],
+          "low": ["purely technical or operational thinking", "no business connection", "no awareness of metrics"]
+        }
+      },
+      {
+        "id": "first_principles",
+        "label": "First Principles Thinking",
+        "description": "Ability to reason from fundamentals rather than pattern-matching to past experience",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["questions underlying assumptions", "reasons from fundamentals", "identifies non-obvious insights", "original thought rather than playbook recitation"],
+          "medium": ["some original thinking mixed with pattern-matching", "identifies some assumptions"],
+          "low": ["pure pattern-matching", "no original insight", "just describes what worked before"]
+        }
+      },
+      {
+        "id": "ambiguity_handling",
+        "label": "Ambiguity Handling",
+        "description": "Comfort with incomplete information and ability to drive clarity",
+        "weight": 0.15,
+        "scoring_signals": {
+          "high": ["asks clarifying questions", "makes stated assumptions explicitly", "comfortable deciding with incomplete info", "structures ambiguity into components"],
+          "medium": ["somewhat comfortable with ambiguity", "some structure applied"],
+          "low": ["paralyzed by ambiguity", "gives up or gives a non-answer", "needs all information before engaging"]
+        }
+      },
+      {
+        "id": "ownership_signals",
+        "label": "Ownership Signals",
+        "description": "Language and behavior indicating genuine ownership vs. delegation or deflection",
+        "weight": 0.25,
+        "scoring_signals": {
+          "high": ["uses 'I' for decisions and actions (not just 'we')", "takes accountability for failures", "describes going beyond role expectations", "identifies problems and drives solutions proactively"],
+          "medium": ["some ownership language", "mixed I/we usage appropriately"],
+          "low": ["always says 'we'", "deflects failures to others/circumstances", "describes being assigned work rather than taking initiative"]
+        },
+        "analysis": {
+          "count_i_vs_we": true,
+          "ownership_keywords": ["I decided", "I proposed", "I drove", "I owned", "I built", "I initiated", "I noticed"],
+          "deflection_keywords": ["the team decided", "management told us", "we were assigned", "it wasn't my responsibility"]
+        }
+      },
+      {
+        "id": "communication_clarity",
+        "label": "Communication Clarity",
+        "description": "Ability to explain complex ideas simply and compellingly",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["clear structure (beginning/middle/end)", "uses concrete analogies", "appropriate technical depth for audience", "concise and not rambling"],
+          "medium": ["generally clear but some rambling or jargon"],
+          "low": ["unclear structure", "excessive jargon", "no concrete examples", "too long or too short"]
+        }
+      }
+    ],
+    "hr_round": [
+      {
+        "id": "cultural_alignment",
+        "label": "Cultural Alignment",
+        "description": "Values and working style match to company culture archetype",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["references company values specifically", "demonstrates alignment through behavior examples", "genuine enthusiasm (not performative)", "research into company culture evident"],
+          "medium": ["general alignment", "some specific references"],
+          "low": ["generic answers", "no research evidence", "values mismatch signals"]
+        }
+      },
+      {
+        "id": "self_awareness",
+        "label": "Self-Awareness",
+        "description": "Accurate and honest understanding of own strengths and weaknesses",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["honest about real weaknesses (not disguised strengths)", "specific examples supporting claims", "consistent self-image across questions", "growth plan for weaknesses"],
+          "medium": ["somewhat honest", "some specificity", "minor inconsistencies"],
+          "low": ["fake weaknesses ('I work too hard')", "no evidence for claims", "inconsistent self-portrayal"]
+        }
+      },
+      {
+        "id": "conflict_resolution",
+        "label": "Conflict Resolution",
+        "description": "Maturity and effectiveness in handling interpersonal and professional conflicts",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["addresses conflict directly but respectfully", "focuses on issue not person", "empathy for other party", "resolution maintained relationship", "proactive conflict prevention"],
+          "medium": ["handled conflict but approach not ideal", "resolution occurred"],
+          "low": ["avoided conflict", "aggressive approach", "blames other party entirely", "no resolution or damaged relationship"]
+        }
+      },
+      {
+        "id": "motivation_authenticity",
+        "label": "Motivation Authenticity",
+        "description": "Genuine, specific motivations for this role vs. generic or performative answers",
+        "weight": 0.20,
+        "scoring_signals": {
+          "high": ["specific product features or decisions mentioned", "personal story connection", "competitive awareness (why here vs. others)", "long-term career logic evident"],
+          "medium": ["some specificity", "partially genuine"],
+          "low": ["generic 'great company/role'", "no specific research", "clearly applying everywhere"]
+        }
+      },
+      {
+        "id": "verbal_fluency",
+        "label": "Verbal Fluency",
+        "description": "Confidence, pace, and clarity of spoken expression (voice mode only)",
+        "weight": 0.20,
+        "voice_mode_only": true,
+        "scoring_signals": {
+          "high": ["minimal filler words (<2%)", "appropriate pace", "confident tone", "no excessive hedging"],
+          "medium": ["some fillers", "occasional pace issues", "some hedging"],
+          "low": ["frequent fillers (>8%)", "very fast/slow pace", "lacks confidence", "constant hedging language"]
+        },
+        "filler_words": ["um", "uh", "like", "basically", "you know", "kind of", "sort of", "right?", "I mean", "honestly", "literally"]
+      }
+    ],
+    "universal": [
+      {
+        "id": "star_compliance",
+        "label": "STAR Structure",
+        "description": "Use of Situation-Task-Action-Result framework in behavioral answers",
+        "weight": 0.25,
+        "scoring_signals": {
+          "high": ["all 4 STAR components present", "Result is specific and measurable", "Action is clearly the candidate's own", "Situation set up concisely"],
+          "medium": ["3 of 4 components present", "result present but vague"],
+          "low": ["missing 2+ components", "no result mentioned", "all context no action"]
+        },
+        "star_keywords": {
+          "situation": ["the context was", "at the time", "the company was", "we were facing", "the situation was", "when I was at"],
+          "task": ["my responsibility was", "I was tasked with", "my role was", "I needed to", "the goal was"],
+          "action": ["I decided to", "I built", "I proposed", "I led", "I reached out", "I created", "I implemented"],
+          "result": ["as a result", "this led to", "the outcome was", "we achieved", "this resulted in", "the impact was"]
+        }
+      },
+      {
+        "id": "answer_conciseness",
+        "label": "Answer Conciseness",
+        "description": "Answer length appropriateness — neither too brief nor too rambling",
+        "weight": 0.15,
+        "ideal_ranges": {
+          "behavioral": { "min_words": 150, "max_words": 350 },
+          "technical": { "min_words": 150, "max_words": 500 },
+          "system_design": { "min_words": 300, "max_words": 700 },
+          "opinion": { "min_words": 100, "max_words": 250 }
+        }
+      },
+      {
+        "id": "consistency",
+        "label": "Consistency",
+        "description": "Absence of contradictions across answers in the same session",
+        "weight": 0.10,
+        "detection": {
+          "track_claims": true,
+          "flag_contradictions": true,
+          "examples": [
+            "Claims team of 5 in one answer, team of 12 in another",
+            "Says worked at company X for 2 years, later says 3 years",
+            "Claims solo project in one answer, team project in another"
+          ]
+        }
+      }
+    ]
+  },
+  "score_aggregation": {
+    "technical_round_weight": 0.40,
+    "founders_round_weight": 0.35,
+    "hr_round_weight": 0.25,
+    "universal_metrics_weight": 0.20,
+    "round_specific_weight": 0.80
+  },
+  "performance_tiers": {
+    "exceptional": { "min": 90, "label": "Exceptional", "color": "#10B981", "message": "Strong candidate — likely to receive an offer" },
+    "strong": { "min": 75, "label": "Strong", "color": "#3B82F6", "message": "Good candidate — likely to proceed to next round" },
+    "developing": { "min": 55, "label": "Developing", "color": "#F59E0B", "message": "Some strengths, clear areas to work on" },
+    "early_stage": { "min": 0, "label": "Early Stage", "color": "#EF4444", "message": "Significant preparation needed before interviewing" }
+  },
+  "improvement_suggestions": {
+    "technical_depth": "Practice explaining technical concepts at increasing levels of depth. For each past project, prepare to answer: 'Why this approach?', 'What were the alternatives?', 'What broke and why?', 'What would you do differently?'",
+    "star_compliance": "Every behavioral answer needs a Result — without it, interviewers don't know if your action worked. Before answering any behavioral question, take 5 seconds to remember the specific outcome. If possible, quantify it.",
+    "ownership_signals": "Review your answers and count how many times you said 'I' vs 'we'. When describing decisions and actions, use 'I'. Save 'we' for context and collaboration. Practice retelling the same story with explicit ownership language.",
+    "answer_conciseness": "Record yourself answering questions and time your answers. Aim for 90-150 seconds for behavioral, 60-90 seconds for opinion questions. Practice the 'headline first' technique: state your answer in one sentence, then elaborate.",
+    "verbal_fluency": "Record yourself and count filler words per minute. Replace fillers with a 1-second pause — silence is more confident than 'um'. Practice answering questions out loud daily, not just in your head.",
+    "cultural_alignment": "Research the company's engineering blog, product decisions, LinkedIn posts by founders, and recent news. Reference specific decisions or products in your answers — generic enthusiasm is easy to fake; specifics aren't.",
+    "motivation_authenticity": "Write down 3 specific things this company has done that you admire, and 3 specific ways this role connects to your 5-year vision. Your answer to 'why us' should be specific enough that it wouldn't apply to their competitor.",
+    "business_acumen": "Practice converting every technical or product decision into a business outcome. Ask: 'What metric does this move?', 'How many users/dollars is this worth?', 'What does the unit economics look like?'",
+    "gap_awareness": "When you hit a knowledge gap, don't fake it or freeze. Say: 'I haven't worked with X directly, but here's how I'd approach learning it / here's the adjacent experience I have.' Honesty + a plan beats confidence without substance."
+  }
+}

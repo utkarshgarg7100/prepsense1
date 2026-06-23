@@ -1,0 +1,739 @@
+[
+  {
+    "id": "razorpay",
+    "name": "Razorpay",
+    "tier": "Indian Unicorn",
+    "industry": "Fintech",
+    "founded": 2014,
+    "hq": "Bengaluru",
+    "size": "5000+",
+    "culture_values": [
+      "Customer obsession over revenue",
+      "Ownership and accountability",
+      "Speed without compromise on quality",
+      "Data-driven decision making",
+      "Developer-first mindset"
+    ],
+    "interview_style": "Structured but fast-paced. Razorpay interviewers value clarity of thought and directness. They dislike long-winded answers. Expect deep dives into past work — they want specifics, not generalizations. Technical roles will have system design rounds.",
+    "what_they_look_for": [
+      "Concrete examples of ownership — situations where you went beyond your role",
+      "Specific metrics and outcomes, not just actions taken",
+      "Genuine curiosity about fintech and payments",
+      "Ability to handle ambiguity without losing focus",
+      "Culture of shipping — they want doers, not planners"
+    ],
+    "red_flags_for_them": [
+      "Vague answers like 'we built a system' — they want 'I designed the schema and shipped it in 3 weeks'",
+      "Blaming external factors for failures without taking accountability",
+      "No curiosity about Razorpay's product or competitors",
+      "Risk aversion and over-emphasis on process",
+      "Inability to quantify your own impact"
+    ],
+    "hr_round_focus": [
+      "Why Razorpay specifically — they screen hard for genuine interest",
+      "How you handle failure — they want honesty and learnings",
+      "Team collaboration stories — how you dealt with conflict",
+      "Long-term career vision and how Razorpay fits",
+      "What you read, follow, and stay curious about"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a time you owned a project from ideation to launch. What was the hardest part?",
+      "Describe a situation where you had to push back on a senior stakeholder. How did you do it?",
+      "What's a product decision you've seen Razorpay make that you'd have done differently?",
+      "Tell me about a time you failed. What did you learn and how did you change?",
+      "Why fintech? Why payments? Why now?"
+    ],
+    "founders_round_focus": "Expect questions about the business model, growth levers, and competitive moat of Razorpay. They want people who think like owners, not employees.",
+    "key_products": ["Razorpay Checkout", "Razorpay X (Banking)", "PaymentLinks", "Subscriptions API", "Route (Marketplace Payments)"],
+    "competitors": ["PayU", "Cashfree", "Paytm Payment Gateway", "Stripe (international)"],
+    "recent_news_to_know": "Razorpay's expansion into banking stack, RazorpayX, and their NBFC license are key talking points."
+  },
+  {
+    "id": "swiggy",
+    "name": "Swiggy",
+    "tier": "Indian Unicorn",
+    "industry": "Food Tech",
+    "founded": 2014,
+    "hq": "Bengaluru",
+    "size": "5000+",
+    "culture_values": [
+      "Think big, start small, move fast",
+      "Be bold and take ownership",
+      "Customer delight above all",
+      "Diversity and inclusion in teams",
+      "Long-term thinking over short-term gains"
+    ],
+    "interview_style": "Swiggy interviews are case-driven. Expect real business problems from Swiggy's operations or product. They value structured problem-solving and the ability to drive toward clarity from an ambiguous starting point. Behavioral interviews follow STAR format strictly.",
+    "what_they_look_for": [
+      "Ability to break down complex operational or product problems",
+      "User empathy — especially for delivery executives and restaurant partners, not just consumers",
+      "Data fluency — can you move from intuition to insight with data?",
+      "Collaboration across functions without letting hierarchy slow you down",
+      "Track record of moving fast and shipping meaningful work"
+    ],
+    "red_flags_for_them": [
+      "Answers that ignore the operational complexity of food delivery",
+      "Over-indexing on consumer experience while ignoring supply-side (DE, restaurant)",
+      "No familiarity with Swiggy's product evolution or business model",
+      "Inability to size a problem or define success metrics",
+      "Excessive caution and analysis paralysis"
+    ],
+    "hr_round_focus": [
+      "Why Swiggy and why this specific role",
+      "Collaboration and conflict resolution stories",
+      "How you handle failure and recover",
+      "Examples of customer empathy in practice",
+      "Long-term ambitions and how Swiggy fits"
+    ],
+    "sample_hr_questions": [
+      "Swiggy operates at the intersection of logistics, tech, and food. What excites you most about that?",
+      "Tell me about a time you had to align multiple teams with different priorities. How did you get to a decision?",
+      "Describe a time you took a bold bet that didn't work out. What happened?",
+      "How do you stay close to users or customers in your current role?",
+      "What's one thing Swiggy does really well and one thing you'd improve?"
+    ],
+    "founders_round_focus": "Expect scenario questions: 'What would you do if delivery times increased 20% in Bengaluru this month?' They want structured thinkers who can operate across ambiguity.",
+    "key_products": ["Swiggy Food", "Instamart (10-min grocery)", "Swiggy Genie", "Swiggy One (subscription)"],
+    "competitors": ["Zomato", "Blinkit (Zomato)", "BB Now", "Dunzo"],
+    "recent_news_to_know": "Swiggy's IPO, Instamart expansion, and the quick-commerce war with Blinkit are essential context."
+  },
+  {
+    "id": "zepto",
+    "name": "Zepto",
+    "tier": "Indian Unicorn",
+    "industry": "Quick Commerce",
+    "founded": 2021,
+    "hq": "Mumbai",
+    "size": "2000+",
+    "culture_values": [
+      "Speed over perfection",
+      "Extreme ownership",
+      "Frugality and resourcefulness",
+      "Data above opinion",
+      "Relentless customer focus"
+    ],
+    "interview_style": "Zepto interviews are intense, fast, and direct. They're built by 19-year-olds who dropped out of Stanford — expect a young, scrappy culture. Interviewers want to know if you'll take ownership immediately and if you can operate at startup speed. They don't appreciate over-prepared corporate answers.",
+    "what_they_look_for": [
+      "Extreme ownership — stories where you went far beyond your job description",
+      "Speed of execution — how quickly can you move from idea to shipped?",
+      "Hustle — willingness to do whatever it takes, including things below your pay grade",
+      "Business impact — every project should have a number attached",
+      "No ego — flat hierarchy, willingness to take out trash if needed"
+    ],
+    "red_flags_for_them": [
+      "Process-heavy thinking ('we'd need to run this through several committees')",
+      "Inability to move without complete information",
+      "Focus on title or role boundaries",
+      "No metrics or numbers associated with your past work",
+      "Not using Zepto or not knowing its product deeply"
+    ],
+    "hr_round_focus": [
+      "Why startups, specifically Zepto",
+      "Evidence of hustle and going above and beyond",
+      "How you handle extreme ambiguity and fast change",
+      "Team fit — energy, attitude, drive",
+      "What you want to learn and build in next 2 years"
+    ],
+    "sample_hr_questions": [
+      "Tell me about the most ownership you've ever taken in a role — what was the situation and what did you do?",
+      "Describe a time you worked extremely fast under pressure. What was the result?",
+      "We move fast and sometimes break things. Tell me about a mistake you made when moving fast.",
+      "Why quick commerce? Why do you believe this is a long-term business?",
+      "What would you do in your first 30 days here?"
+    ],
+    "founders_round_focus": "Expect scenario questions about dark store economics, delivery time optimization, and grocery catalog strategy. Founders are very hands-on and technically sharp.",
+    "key_products": ["Zepto App (10-min grocery)", "Zepto Cafe (ready food)", "Zepto for Business"],
+    "competitors": ["Blinkit (Zomato)", "Swiggy Instamart", "BB Now", "Dunzo"],
+    "recent_news_to_know": "Zepto's Series E fundraise, Zepto Cafe launch, and their dark store count expansion are key talking points."
+  },
+  {
+    "id": "google",
+    "name": "Google",
+    "tier": "FAANG",
+    "industry": "Big Tech",
+    "founded": 1998,
+    "hq": "Mountain View, CA",
+    "size": "180000+",
+    "culture_values": [
+      "Focus on the user and all else will follow",
+      "It's best to do one thing really, really well",
+      "Fast is better than slow",
+      "Democracy on the web works",
+      "You can be serious without a suit"
+    ],
+    "interview_style": "Google uses a structured, competency-based approach. All interviewers use a unified scorecard. Expect 4-6 rounds for senior roles. Heavy emphasis on Googleyness (cultural fit), Leadership (initiative, influence), Problem-solving, and Role-specific skills. Technical roles always include system design and coding.",
+    "what_they_look_for": [
+      "Googleyness: intellectual humility, collaboration, thriving in ambiguity",
+      "Demonstrated impact at scale — your work reaching millions",
+      "Structured, first-principles problem solving",
+      "Leadership that doesn't depend on authority (influencing without hierarchy)",
+      "Continuous learning mindset and intellectual curiosity"
+    ],
+    "red_flags_for_them": [
+      "Arrogance or unwillingness to acknowledge weaknesses",
+      "Can't work in large, matrixed organizations",
+      "Only individual contributor mindset with no leadership evidence",
+      "Inability to deal with ambiguity or changing requirements",
+      "Not enough intellectual depth — surface-level answers"
+    ],
+    "hr_round_focus": [
+      "Googleyness — will you thrive in Google's unique culture?",
+      "Leadership examples from all levels of seniority",
+      "How you handle failure and what you've learned",
+      "Collaboration across large, complex organizations",
+      "Why Google vs. other big tech companies"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a time you influenced an outcome without having direct authority.",
+      "Describe a situation where you had to work with someone whose work style was very different from yours.",
+      "Tell me about a project that failed. What was your role and what did you take away from it?",
+      "Give me an example of when you had to learn something completely new in a short time frame.",
+      "Why Google specifically, and why this role at this point in your career?"
+    ],
+    "founders_round_focus": "Google's 'founders round' equivalent is usually the hiring committee or VP review. Expect questions about long-term vision, impact at Google-scale, and how you'd approach big bets.",
+    "key_products": ["Google Search", "Google Cloud", "Android", "YouTube", "Workspace", "Gemini AI"],
+    "competitors": ["Microsoft/Azure", "Amazon/AWS", "Meta", "Apple", "OpenAI"],
+    "recent_news_to_know": "Gemini AI, Google Cloud growth vs. AWS, antitrust scrutiny on Search, and Workspace AI integration are essential."
+  },
+  {
+    "id": "amazon",
+    "name": "Amazon",
+    "tier": "FAANG",
+    "industry": "E-Commerce / Cloud",
+    "founded": 1994,
+    "hq": "Seattle, WA",
+    "size": "1500000+",
+    "culture_values": [
+      "Customer obsession, not competitor focus",
+      "Ownership — act like an owner, never say 'that's not my job'",
+      "Invent and simplify",
+      "Bias for action — speed matters",
+      "Frugality — accomplish more with less",
+      "Dive deep — stay connected to details",
+      "Have backbone; disagree and commit"
+    ],
+    "interview_style": "Amazon is famous for the Leadership Principles (LPs). Every single behavioral question maps to one or more LPs. Prepare 2-3 STAR stories per LP. Interviewers will probe hard if your story is vague — they want specifics: who, what, when, numbers. Technical roles have system design + coding. PMs have product case + LP rounds.",
+    "what_they_look_for": [
+      "Customer obsession — you start every decision from the customer",
+      "Ownership — you go beyond your role and drive things to completion",
+      "Dive deep — you know the details of your work, not just the surface",
+      "Frugality — you've done more with less, you don't throw resources at problems",
+      "Bias for action — you make decisions with incomplete information and move fast"
+    ],
+    "red_flags_for_them": [
+      "Vague STAR stories — 'we did X' without your specific role",
+      "No metric or outcome in your examples",
+      "Inability to 'disagree and commit' — you either agree too easily or hold grudges",
+      "Entitlement or arrogance — Amazon is anti-hierarchy",
+      "No customer empathy — every answer must trace back to the customer"
+    ],
+    "hr_round_focus": [
+      "Bar Raiser round — a senior Amazonian who checks LP compliance across all 16 principles",
+      "Deep STAR story probing for every LP",
+      "Specifically: Customer Obsession, Ownership, Invent & Simplify, Dive Deep",
+      "Why Amazon and why this team",
+      "Long-term career vision"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a time you sacrificed short-term gains for a better long-term outcome for the customer.",
+      "Describe a time you took on something significantly outside your responsibilities.",
+      "Tell me about a time you invented a process or tool that simplified work for others.",
+      "Give me an example of when you dug into data that wasn't readily available to find an answer.",
+      "Tell me about a time you disagreed with a decision and what you did about it."
+    ],
+    "founders_round_focus": "Amazon doesn't have a traditional founders round, but the Bar Raiser serves a similar function. They focus on LP depth and whether you'll raise the bar for Amazon's culture.",
+    "key_products": ["Amazon.com", "AWS", "Prime", "Alexa", "Kindle", "AWS Bedrock"],
+    "competitors": ["Google Cloud", "Microsoft Azure", "Walmart", "Flipkart"],
+    "recent_news_to_know": "AWS AI/Bedrock expansion, Amazon India strategy, generative AI infrastructure investments, and Project Kuiper (satellite internet) are key."
+  },
+  {
+    "id": "flipkart",
+    "name": "Flipkart",
+    "tier": "Indian Unicorn",
+    "industry": "E-Commerce",
+    "founded": 2007,
+    "hq": "Bengaluru",
+    "size": "30000+",
+    "culture_values": [
+      "Be a pioneer",
+      "Build from the heart — serve Indian customers",
+      "Own your work",
+      "Be bold and take big bets",
+      "Build for Bharat"
+    ],
+    "interview_style": "Flipkart interviews are similar to Amazon's in structure — expect behavioral STAR questions — but with a distinctly Indian market context. Case interviews for PM and strategy roles. Technical interviews include system design with a focus on scale (they operate at very high transaction volumes).",
+    "what_they_look_for": [
+      "Deep understanding of Indian consumers and Bharat market",
+      "Ability to think at Flipkart-scale (400M users, millions of sellers)",
+      "Entrepreneurial mindset — Flipkart was India's first e-commerce startup",
+      "Willingness to build for challenges unique to India: low bandwidth, price sensitivity, COD",
+      "Data fluency and ability to interpret large-scale behavioral data"
+    ],
+    "red_flags_for_them": [
+      "Western-centric product thinking without adaptation for India",
+      "No understanding of Bharat users (Tier 2-4 cities, vernacular needs)",
+      "Inability to think at scale",
+      "Not aware of Flipkart's competitive position vs. Amazon India",
+      "Arrogance about your current company vs. Flipkart"
+    ],
+    "hr_round_focus": [
+      "Why Flipkart over Amazon India",
+      "Your relationship with and understanding of Indian consumers",
+      "Stories of building or adapting products for diverse user segments",
+      "How you collaborate in large, matrixed orgs",
+      "Long-term goals and how Flipkart enables them"
+    ],
+    "sample_hr_questions": [
+      "What do you know about Bharat users that most product people in Bengaluru don't?",
+      "Tell me about a time you made a decision that was right for the customer but hard internally.",
+      "Describe a high-stakes project where you had to align 5+ teams. How did you do it?",
+      "What's one thing Amazon India does better than Flipkart, and how would you fix it?",
+      "Tell me about a product or feature that failed. What went wrong and what did you learn?"
+    ],
+    "founders_round_focus": "Flipkart's senior rounds focus on market strategy, Bharat expansion, and long-term competitive moat. They want people who've thought deeply about Indian e-commerce.",
+    "key_products": ["Flipkart Marketplace", "Myntra", "Cleartrip", "Shopsy", "Flipkart Quick"],
+    "competitors": ["Amazon India", "Meesho", "Nykaa", "Ajio", "Tata Cliq"],
+    "recent_news_to_know": "Flipkart's IPO plans, Walmart ownership, Flipkart Quick (quick commerce push), and their logistics subsidiary eKart are key talking points."
+  },
+  {
+    "id": "cred",
+    "name": "CRED",
+    "tier": "Indian Unicorn",
+    "industry": "Fintech / Lifestyle",
+    "founded": 2018,
+    "hq": "Bengaluru",
+    "size": "1000+",
+    "culture_values": [
+      "Trust and transparency",
+      "Extreme ownership",
+      "Craft and design excellence",
+      "Premium experience for premium members",
+      "Honesty over politeness"
+    ],
+    "interview_style": "CRED interviews are unusually conversational and creative for a fintech company. They expect strong opinions and the willingness to defend them. Design sensibility is assessed even for non-design roles. They will probe your taste — what products do you admire and why? Vague answers fail immediately.",
+    "what_they_look_for": [
+      "Taste and design sensibility — you notice when products are beautiful vs. merely functional",
+      "Strong opinions, loosely held — you have a point of view and can defend it",
+      "Ownership — you don't just do your job, you shape your role",
+      "Trust-building — every CRED product is built on trust with creditworthy members",
+      "Deep thinking — CRED dislikes shallow, trend-following thinkers"
+    ],
+    "red_flags_for_them": [
+      "No opinion about product design or no design taste",
+      "Generic answers about why you want to work in fintech",
+      "Not using CRED or not knowing their product deeply",
+      "Thinking of premium users as a niche — CRED sees 12M creditworthy Indians as a massive market",
+      "Short-term thinking — CRED bets on 5-10 year trust relationships"
+    ],
+    "hr_round_focus": [
+      "Cultural alignment — trust, transparency, craft",
+      "Your product taste and opinions about design",
+      "Why CRED vs. any other fintech",
+      "How you build trust with users in your work",
+      "Long-term vision and ambition"
+    ],
+    "sample_hr_questions": [
+      "What's a product you think is genuinely beautiful? Why — be specific about what they got right.",
+      "Tell me about a time you disagreed with your manager and what you did about it.",
+      "What do you think CRED's core business model is? Do you believe in it long-term?",
+      "Describe the last time you went significantly beyond what was asked of you.",
+      "What would you fix about CRED's product in your first 90 days?"
+    ],
+    "founders_round_focus": "Kunal Shah (CEO) rounds focus on mental models, contrarian thinking, and first-principles reasoning about consumer behavior and trust economics. He has a famous framework called 'Delta 4' — know it.",
+    "key_products": ["CRED Pay", "CRED Cash (loans)", "CRED Travel", "CRED Store", "CRED Garage (car management)"],
+    "competitors": ["Slice", "OneCard", "Paytm", "Fi Money"],
+    "recent_news_to_know": "CRED's UPI push, CRED Mint (P2P lending), and their expansion into car financing through CRED Garage are recent developments."
+  },
+  {
+    "id": "groww",
+    "name": "Groww",
+    "tier": "Indian Unicorn",
+    "industry": "Fintech / Wealth Management",
+    "founded": 2016,
+    "hq": "Bengaluru",
+    "size": "3000+",
+    "culture_values": [
+      "Help Indians invest better",
+      "Simplicity over complexity",
+      "Trust and transparency",
+      "Long-term user benefit over short-term revenue",
+      "Data-driven everything"
+    ],
+    "interview_style": "Groww interviews are straightforward and merit-based. Expect strong emphasis on domain knowledge (investing, financial products) and ability to make complex things simple. They value intellectual honesty and will call out BS quickly. Technical rounds are rigorous.",
+    "what_they_look_for": [
+      "Passion for financial inclusion — making investing simple for first-time investors",
+      "Data fluency — every decision at Groww starts with a number",
+      "Simplicity mindset — can you make a complex financial product understandable?",
+      "Trust-building — financial products require an especially high trust bar",
+      "Domain knowledge — mutual funds, stocks, ETFs, and their regulatory landscape"
+    ],
+    "red_flags_for_them": [
+      "No interest in personal finance or investing",
+      "Over-engineered solutions to simple problems",
+      "Regulatory naivety — financial products have hard constraints",
+      "No empathy for first-time investors",
+      "Inability to quantify past impact"
+    ],
+    "hr_round_focus": [
+      "Why financial services and why Groww",
+      "Your own relationship with investing — do you invest? What do you own?",
+      "How you build user trust in high-stakes domains",
+      "Collaboration and alignment stories",
+      "Long-term vision and how Groww fits"
+    ],
+    "sample_hr_questions": [
+      "Do you personally invest? What do you own and why did you make those choices?",
+      "Tell me about a time you simplified something complex for a non-expert audience.",
+      "What's one thing Groww does that builds trust with first-time investors, and one thing that could erode it?",
+      "Describe a situation where data told you one thing but your gut said another. What did you do?",
+      "How would you explain a SIP to someone who has never invested before?"
+    ],
+    "founders_round_focus": "Groww founders (Lalit, Harsh, Neeraj, Ishan) focus on mission alignment, financial inclusion vision, and long-term user trust. They want true believers.",
+    "key_products": ["Groww (MF investing)", "Groww Stocks", "Groww Intraday", "Groww Fixed Deposits", "Groww US Stocks"],
+    "competitors": ["Zerodha", "Upstox", "Angel One", "INDmoney", "Paytm Money"],
+    "recent_news_to_know": "Groww's expansion into US stocks, FD products, and their IPO preparations are key. Also know Groww's valuation trajectory."
+  },
+  {
+    "id": "meesho",
+    "name": "Meesho",
+    "tier": "Indian Unicorn",
+    "industry": "Social Commerce",
+    "founded": 2015,
+    "hq": "Bengaluru",
+    "size": "5000+",
+    "culture_values": [
+      "Democratize internet commerce for Bharat",
+      "Customer obsession — supplier and buyer",
+      "Frugality and resourcefulness",
+      "Diversity and inclusion",
+      "Long-term thinking"
+    ],
+    "interview_style": "Meesho interviews are centered around the Bharat user — interviews will probe whether you genuinely understand Tier 2-4 India. Expect detailed behavioral interviews with a focus on empathy and impact. They want people who can do more with less — frugality is core to their DNA.",
+    "what_they_look_for": [
+      "Deep empathy for Tier 2-4 India users — resellers, small sellers, value-seeking buyers",
+      "Frugality — can you solve problems without spending money?",
+      "Impact at massive scale — Meesho reaches users that other platforms ignore",
+      "Diversity appreciation — Meesho's team is intentionally diverse",
+      "Long-term commitment — Meesho plays a 10-year game"
+    ],
+    "red_flags_for_them": [
+      "Bengaluru/Mumbai bubble thinking — no understanding of Bharat",
+      "Resource-heavy solutions ('we'd need 3 engineers and a data scientist')",
+      "No empathy for low-income, first-time online shoppers",
+      "Not understanding Meesho's supplier-reseller-buyer three-sided marketplace",
+      "Short-term P&L thinking without considering long-term relationship economics"
+    ],
+    "hr_round_focus": [
+      "Your connection to Bharat users and communities",
+      "Why Meesho's mission resonates with you personally",
+      "Frugality stories — doing more with less",
+      "Collaboration and inclusion examples",
+      "Long-term ambition and patience"
+    ],
+    "sample_hr_questions": [
+      "Describe a product experience you've had as a customer in a Tier 2-3 city context. What was broken?",
+      "Tell me about a time you achieved significant results with very limited resources.",
+      "What do you think is the single biggest barrier to internet commerce adoption in small-town India?",
+      "Describe a time you worked with a team that was very different from your background.",
+      "Why Meesho over Flipkart or Amazon India for your career?"
+    ],
+    "founders_round_focus": "Vidit Aatrey (CEO) focuses on mission alignment, Bharat user empathy, and long-term strategic bets. He will probe whether you've actually spent time understanding non-metro India.",
+    "key_products": ["Meesho Marketplace", "Meesho Supplier Panel", "Meesho for Business"],
+    "competitors": ["Amazon India", "Flipkart", "Shopsy", "IndiaMART"],
+    "recent_news_to_know": "Meesho's path to profitability, their social commerce model evolution, and expansion into D2C for small brands are key."
+  },
+  {
+    "id": "phonepe",
+    "name": "PhonePe",
+    "tier": "Indian Unicorn",
+    "industry": "Fintech / Super App",
+    "founded": 2015,
+    "hq": "Bengaluru",
+    "size": "5000+",
+    "culture_values": [
+      "Move fast, stay reliable",
+      "Scale for every Indian",
+      "Owned by users, powered by trust",
+      "Data-driven decisions",
+      "Build for 10 years, ship in 10 days"
+    ],
+    "interview_style": "PhonePe interviews are rigorous, data-driven, and move fast. Expect technical depth even for PM roles. They value people who've operated at scale (PhonePe processes 5B+ transactions/year) and have a zero-tolerance for downtime. Culture is intensely performance-driven.",
+    "what_they_look_for": [
+      "Scale mindset — your instincts should be calibrated for hundreds of millions of users",
+      "Reliability obsession — payments require five-nines uptime thinking",
+      "Data fluency — PhonePe makes almost no decisions without data",
+      "Speed — they compete with Paytm and Google Pay in real time",
+      "Financial inclusion mission — serving users who never had bank accounts before"
+    ],
+    "red_flags_for_them": [
+      "Naive about payment regulations (RBI, NPCI, UPI framework)",
+      "No appreciation for uptime and reliability requirements",
+      "No data or numbers in past work",
+      "No understanding of UPI as an ecosystem, not just a feature",
+      "Western-centric product thinking"
+    ],
+    "hr_round_focus": [
+      "Why payments, why PhonePe",
+      "Examples of operating at high scale with reliability requirements",
+      "How you think about trust in financial products",
+      "Collaboration stories across large orgs",
+      "Long-term vision for digital India"
+    ],
+    "sample_hr_questions": [
+      "What do you think has been PhonePe's single biggest advantage over Google Pay and Paytm?",
+      "Tell me about a time you were responsible for something that broke in production. How did you handle it?",
+      "How would you explain UPI to a 60-year-old vegetable vendor in rural Rajasthan?",
+      "Describe a data-driven decision you made that overrode your gut instinct. How did it turn out?",
+      "What's one new product PhonePe should build and why?"
+    ],
+    "founders_round_focus": "Sameer Nigam (CEO) focuses on 'why payments, why India, why now' — mission alignment and long-term strategic thinking. He wants people who've thought deeply about the digital infrastructure layer of India.",
+    "key_products": ["PhonePe UPI", "PhonePe Wallet", "PhonePe Insurance", "PhonePe Wealth", "Switch (mini apps)"],
+    "competitors": ["Paytm", "Google Pay", "Amazon Pay", "BHIM"],
+    "recent_news_to_know": "PhonePe's ONDC integration, international expansion plans, and their IPO timeline are key. Also know their dominance in UPI market share."
+  },
+  {
+    "id": "atlassian",
+    "name": "Atlassian",
+    "tier": "Global MNC",
+    "industry": "Enterprise SaaS",
+    "founded": 2002,
+    "hq": "Sydney, Australia",
+    "size": "10000+",
+    "culture_values": [
+      "Open company, no bullshit",
+      "Build with heart and balance",
+      "Don't #@!% the customer",
+      "Play, as a team",
+      "Be the change you seek"
+    ],
+    "interview_style": "Atlassian is famous for STAR-based behavioral interviews called 'strength-based' interviews. They do NOT do trick questions or brainteasers. Expect questions about collaboration, intellectual honesty, and openness. Technical roles have coding and system design. Culture is remote-first and very collaborative.",
+    "what_they_look_for": [
+      "Openness and intellectual honesty — no posturing, just truth",
+      "Genuine teamwork — Atlassian is deeply collaborative, no lone wolves",
+      "Mission connection — they believe in unleashing the potential of every team",
+      "Balance — they actually care about burnout and sustainable pace",
+      "Initiative and self-direction — remote-first requires strong autonomy"
+    ],
+    "red_flags_for_them": [
+      "Competitive or 'win at all costs' attitude",
+      "Inability to be honest about failures or weaknesses",
+      "Micromanagement tendencies",
+      "No appreciation for work-life balance",
+      "Need for constant manager input to make decisions"
+    ],
+    "hr_round_focus": [
+      "Atlassian values alignment — specifically the 5 values",
+      "Collaboration and team-first stories",
+      "How you give and receive feedback",
+      "Remote work effectiveness",
+      "Why Atlassian and why B2B SaaS"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a time you had to give difficult feedback to a colleague. How did you approach it?",
+      "Describe a situation where the team made a decision you disagreed with. How did you handle it?",
+      "How do you maintain strong team relationships in a remote-first environment?",
+      "Tell me about a time you put the customer's interest ahead of a business metric.",
+      "What does 'open company, no bullshit' mean to you in practice?"
+    ],
+    "founders_round_focus": "Atlassian co-founders Mike Cannon-Brookes and Scott Farquhar built on values of openness and balance. Senior interviews probe whether you'll add to or subtract from that culture.",
+    "key_products": ["Jira", "Confluence", "Bitbucket", "Trello", "Jira Service Management", "Loom"],
+    "competitors": ["Monday.com", "Asana", "Linear", "Notion", "GitHub"],
+    "recent_news_to_know": "Atlassian's acquisition of Loom, team anywhere (remote-first) strategy, and AI features in Jira and Confluence are key."
+  },
+  {
+    "id": "microsoft",
+    "name": "Microsoft",
+    "tier": "FAANG",
+    "industry": "Enterprise Tech / Cloud",
+    "founded": 1975,
+    "hq": "Redmond, WA",
+    "size": "220000+",
+    "culture_values": [
+      "Growth mindset — learn-it-all over know-it-all",
+      "Diverse and inclusive culture",
+      "One Microsoft — break silos",
+      "Customer success is our success",
+      "Make more possible — empower every person and organization"
+    ],
+    "interview_style": "Microsoft interviews use behavioral questions mapped to their cultural attributes: Growth Mindset, Collaboration, Customer Obsession, and Diversity & Inclusion. Satya Nadella's influence (growth mindset) is pervasive. Technical rounds are thorough. They value intellectual humility and continuous learning.",
+    "what_they_look_for": [
+      "Growth mindset — learn from failure, stay curious, embrace change",
+      "Collaboration across extremely large, complex organizations",
+      "Customer empathy, especially for enterprise and developer customers",
+      "Diversity perspective — they mean it, not just as HR exercise",
+      "Ability to operate with patience and long-term thinking (Microsoft moves slower than startups)"
+    ],
+    "red_flags_for_them": [
+      "Fixed mindset — 'I'm already good at X, I don't need to improve'",
+      "Inability to operate in a large, matrixed organization",
+      "Short-term thinking — Microsoft plays 10-year games",
+      "No curiosity or continuous learning in your work history",
+      "Ego or arrogance"
+    ],
+    "hr_round_focus": [
+      "Growth mindset examples — specifically learning from failure",
+      "Collaboration in large, diverse teams",
+      "Customer empathy and customer impact",
+      "Inclusion stories",
+      "Why Microsoft and why now (Azure AI moment)"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a time you had to fundamentally change your approach or way of thinking about a problem.",
+      "Describe a situation where you collaborated effectively with people from very different backgrounds or perspectives.",
+      "Tell me about a time you failed to meet a customer's expectations. What happened and what did you learn?",
+      "How do you create an inclusive environment in your team?",
+      "What does the growth mindset mean to you, and give me a specific example of you practicing it."
+    ],
+    "founders_round_focus": "Microsoft's equivalent is the as-ap (as appropriate) loop which includes a senior principal or VP. They focus on strategic thinking, cross-organization impact, and culture contribution.",
+    "key_products": ["Azure", "Microsoft 365", "GitHub", "LinkedIn", "Xbox", "Copilot (AI)"],
+    "competitors": ["Google Cloud", "AWS", "Salesforce", "Slack", "Google Workspace"],
+    "recent_news_to_know": "Microsoft's Copilot AI integration across Office, OpenAI partnership and investment, Azure growth, and GitHub Copilot are essential."
+  },
+  {
+    "id": "juspay",
+    "name": "Juspay",
+    "tier": "Series B Startup",
+    "industry": "Payments Infrastructure",
+    "founded": 2012,
+    "hq": "Bengaluru",
+    "size": "500+",
+    "culture_values": [
+      "Engineering excellence above all",
+      "Reliability and trust — payments never fail",
+      "Open source philosophy",
+      "Customer success as company success",
+      "Long-term relationships over short-term deals"
+    ],
+    "interview_style": "Juspay is an engineering-first company built by IIT/BITS engineers who care deeply about systems reliability. Interviews are technical and deep. They value people who have read source code, built production systems, and care about correctness. They're not a growth-hack company — they're an infrastructure company.",
+    "what_they_look_for": [
+      "Deep technical craftsmanship — you care about how things are built, not just that they work",
+      "Reliability mindset — understanding that payments require 99.99% uptime",
+      "Payments domain knowledge — UPI, card networks, PCI-DSS",
+      "Long-term relationship builder — Juspay's moat is trusted, long-term enterprise relationships",
+      "Open source ethos — Juspay has open-sourced core payment infrastructure"
+    ],
+    "red_flags_for_them": [
+      "Move fast and break things mentality — Juspay cannot afford breaks in production",
+      "No systems thinking — everything at Juspay involves distributed systems",
+      "Short-term deal mentality",
+      "No familiarity with payments ecosystem",
+      "Dismissiveness toward Haskell or functional programming (Juspay uses Haskell in production)"
+    ],
+    "hr_round_focus": [
+      "Why infrastructure/platform companies appeal to you",
+      "Your relationship with technical depth and craftsmanship",
+      "How you build trust with large enterprise clients",
+      "Long-term career commitment",
+      "Open source philosophy and community"
+    ],
+    "sample_hr_questions": [
+      "Tell me about a system you built that you're genuinely proud of — technically, not just business-impact-wise.",
+      "Describe a time you had to build something where correctness was more important than speed.",
+      "What do you think is the most underrated aspect of payments infrastructure that most PMs/engineers ignore?",
+      "Tell me about a long-term relationship you've built with a client or partner. What made it last?",
+      "Have you used any open-source projects in production? Have you contributed back?"
+    ],
+    "founders_round_focus": "Vimal Kumar (CEO) focuses on technical depth, payments ecosystem understanding, and long-term commitment. He specifically tests for people who think in systems and reliability.",
+    "key_products": ["Juspay Payment Orchestration", "HyperCheckout", "Hyperswitch (open source)", "Juspay Dashboard"],
+    "competitors": ["Razorpay", "Cashfree", "PayU", "Stripe"],
+    "recent_news_to_know": "Juspay's Hyperswitch open-source payment orchestration layer and their processing of 40B+ in annual volume are key."
+  },
+  {
+    "id": "paytm",
+    "name": "Paytm",
+    "tier": "Indian Unicorn",
+    "industry": "Fintech / Super App",
+    "founded": 2010,
+    "hq": "Noida, UP",
+    "size": "10000+",
+    "culture_values": [
+      "Payments for all Indians",
+      "Build for scale first",
+      "Hustle — work intensity is high",
+      "Zero to one — pioneering mindset",
+      "Vijay Shekhar Sharma's vision — financial services for the masses"
+    ],
+    "interview_style": "Paytm interviews are intense and sales/execution-focused. Expect a fast-paced environment reflected in the interview style. They value people who are willing to roll up sleeves and do whatever it takes. There's less of the structured behavioral framework and more of a direct conversation style.",
+    "what_they_look_for": [
+      "Hustle and intensity — Paytm's culture is demanding",
+      "Scale appetite — they think in hundreds of millions of users",
+      "Sales mindset even in non-sales roles — everyone at Paytm is expected to drive growth",
+      "Comfort with complexity — Paytm has many business lines",
+      "Loyalty and long-term commitment"
+    ],
+    "red_flags_for_them": [
+      "Work-life balance as a primary concern in early interviews",
+      "No understanding of Paytm's complexity (payments + lending + insurance + commerce + ticketing)",
+      "Slow decision-making tendencies",
+      "Perceived lack of intensity",
+      "No understanding of regulatory challenges Paytm has faced"
+    ],
+    "hr_round_focus": [
+      "Why Paytm specifically — they're aware of their reputation challenges",
+      "Comfort with fast-paced, demanding environments",
+      "Stories of outworking challenges",
+      "Understanding of digital payments ecosystem in India",
+      "Long-term commitment to financial services"
+    ],
+    "sample_hr_questions": [
+      "Paytm has faced challenges in the last few years. What do you think about the company's path forward?",
+      "Tell me about the most demanding work environment you've been in. How did you handle it?",
+      "What do you think about the RBI's recent actions on Paytm Payments Bank? How would you address them?",
+      "Describe a time you drove revenue or growth directly.",
+      "Why financial services for mass-market India over premium fintech?"
+    ],
+    "founders_round_focus": "Vijay Shekhar Sharma is known for vision conversations about financial inclusion and building for the masses. He wants believers in the digital India story.",
+    "key_products": ["Paytm Wallet", "Paytm Payments Bank", "Paytm Loans", "Paytm Insurance", "Paytm for Business", "Paytm Ticketing"],
+    "competitors": ["PhonePe", "Google Pay", "Razorpay", "BharatPe"],
+    "recent_news_to_know": "RBI action on Paytm Payments Bank (2024), Paytm's stock decline, restructuring, and path to profitability are essential. This is a sensitive topic — be informed and measured."
+  },
+  {
+    "id": "zomato",
+    "name": "Zomato",
+    "tier": "Indian Unicorn",
+    "industry": "Food Tech",
+    "founded": 2008,
+    "hq": "Gurugram",
+    "size": "5000+",
+    "culture_values": [
+      "Customer obsession (customer = diner, restaurant, delivery partner)",
+      "Radical transparency",
+      "High velocity shipping",
+      "Sustainability (Zomato's environmental commitments)",
+      "Think 10x — big bets over incremental moves"
+    ],
+    "interview_style": "Zomato interviews are direct and fast. Deepinder Goyal's transparency culture permeates the interviews — they want honest people who won't sugarcoat. Expect hard questions about Zomato's business model, profitability path, and the three-sided marketplace. Cultural fit is assessed through honesty and directness.",
+    "what_they_look_for": [
+      "Three-sided marketplace thinking: diner, restaurant partner, delivery partner",
+      "Radical transparency and honesty — including about your own failures",
+      "High-velocity execution — Zomato moves extremely fast",
+      "Sustainability mindset — Zomato has made real environmental commitments",
+      "Big bet thinking — Zomato entered quick commerce (Blinkit) against all odds"
+    ],
+    "red_flags_for_them": [
+      "One-sided customer thinking — forgetting restaurant and DE experience",
+      "Inability to be honest about failures",
+      "No familiarity with Zomato's business model evolution",
+      "Incremental thinking when 10x is expected",
+      "No appreciation for the gig economy and DE welfare"
+    ],
+    "hr_round_focus": [
+      "Why food tech and why Zomato",
+      "Your view on the three-sided marketplace and unit economics",
+      "Stories of radical honesty and transparency",
+      "Big bet examples — a time you made an ambitious call",
+      "Deepinder Goyal's transparency principle — how you embody it"
+    ],
+    "sample_hr_questions": [
+      "What do you think is the single hardest problem Zomato faces in the next 3 years?",
+      "Tell me about a time you were radically honest with someone — a manager, a colleague, or a report.",
+      "Zomato acquired Blinkit at a time when everyone called it a bad deal. What's your view?",
+      "Describe a time you made a big bet that seemed risky at the time. What happened?",
+      "How would you improve the delivery partner experience at Zomato?"
+    ],
+    "founders_round_focus": "Deepinder Goyal is known for candid, unfiltered conversations. He asks about what you'd do differently at Zomato, and he means it — he wants your actual opinion.",
+    "key_products": ["Zomato Food Delivery", "Blinkit (quick commerce)", "Zomato Pro", "Zomato for Restaurants", "Hyperpure (restaurant supplies)"],
+    "competitors": ["Swiggy", "Swiggy Instamart", "Zepto", "Dunzo"],
+    "recent_news_to_know": "Zomato's Blinkit acquisition and integration, path to profitability, and Hyperpure B2B expansion are essential."
+  }
+]

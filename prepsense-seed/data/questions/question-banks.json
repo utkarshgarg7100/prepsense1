@@ -1,0 +1,520 @@
+{
+  "software_engineering": {
+    "technical_round": {
+      "universal": [
+        {
+          "id": "se-t-001",
+          "question": "Walk me through the most complex system you've designed. What were the key architectural decisions and what trade-offs did you make?",
+          "tags": ["system-design", "architecture", "trade-offs"],
+          "follow_up_triggers": ["scalability", "failure-modes", "decision-rationale"],
+          "ideal_length": "300-450 words",
+          "strong_answer_signals": ["specific numbers", "trade-off awareness", "failure mode consideration", "named design patterns"]
+        },
+        {
+          "id": "se-t-002",
+          "question": "Describe a production incident you were involved in. How did you detect it, what was your debugging process, and what did you change afterward?",
+          "tags": ["incident-response", "debugging", "reliability", "post-mortem"],
+          "follow_up_triggers": ["detection-method", "root-cause", "prevention"],
+          "ideal_length": "250-400 words",
+          "strong_answer_signals": ["STAR structure", "specific metrics (downtime, users affected)", "root cause analysis", "concrete prevention measures"]
+        },
+        {
+          "id": "se-t-003",
+          "question": "How do you approach code reviews? What do you look for, and how do you give feedback when you find issues?",
+          "tags": ["code-review", "collaboration", "engineering-culture"],
+          "follow_up_triggers": ["conflict-in-review", "what-you-look-for", "review-philosophy"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific criteria mentioned", "teaching vs. gatekeeping mindset", "example of conflict resolution", "automation vs. human review distinction"]
+        },
+        {
+          "id": "se-t-004",
+          "question": "Tell me about a technical debt situation you inherited or created. How did you decide when to pay it down versus continue building?",
+          "tags": ["technical-debt", "prioritization", "business-vs-engineering"],
+          "follow_up_triggers": ["how-you-quantified-debt", "stakeholder-buy-in", "outcome"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["business impact framing", "concrete prioritization criteria", "stakeholder alignment approach", "measurable outcome"]
+        },
+        {
+          "id": "se-t-005",
+          "question": "How do you approach testing? Walk me through your testing philosophy and how you've applied it in a recent project.",
+          "tags": ["testing", "quality", "engineering-standards"],
+          "follow_up_triggers": ["coverage-vs-quality", "mocking-strategy", "test-types"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["pyramid of testing awareness", "specific coverage targets", "example of bugs caught", "balance of unit/integration/e2e"]
+        },
+        {
+          "id": "se-t-006",
+          "question": "Describe a time you had to learn a new technology quickly for a project. How did you approach it and what was the outcome?",
+          "tags": ["learning-agility", "adaptability", "self-directed-learning"],
+          "follow_up_triggers": ["how-you-learned", "mistakes-made", "what-you'd-do-differently"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific learning method", "timeline", "mistakes acknowledged", "production application"]
+        }
+      ],
+      "frontend_specific": [
+        {
+          "id": "se-fe-t-001",
+          "question": "Walk me through how you'd debug a performance issue where your React app is rendering slowly. What tools and techniques would you use?",
+          "tags": ["react", "performance", "debugging", "profiling"],
+          "follow_up_triggers": ["specific-tools", "re-render-causes", "measurement"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["React DevTools Profiler mentioned", "useCallback/useMemo trade-offs", "specific metrics (FPS, TTI)", "root cause categories"]
+        },
+        {
+          "id": "se-fe-t-002",
+          "question": "Explain the difference between server-side rendering, client-side rendering, and static generation. How do you decide which to use?",
+          "tags": ["ssr", "csr", "ssg", "nextjs", "architecture"],
+          "follow_up_triggers": ["when-to-choose-each", "hydration", "seo-implications"],
+          "ideal_length": "200-350 words",
+          "strong_answer_signals": ["accurate technical distinction", "decision framework given", "SEO and performance implications", "specific use case examples"]
+        },
+        {
+          "id": "se-fe-t-003",
+          "question": "How do you handle state management in a large React application? What's your philosophy on when to use local state vs. global state?",
+          "tags": ["state-management", "react", "architecture"],
+          "follow_up_triggers": ["context-vs-redux", "state-colocation", "performance-implications"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["state colocation principle", "specific library trade-offs", "examples from real projects", "performance implications awareness"]
+        }
+      ],
+      "backend_specific": [
+        {
+          "id": "se-be-t-001",
+          "question": "You're designing a rate limiting system for an API that needs to handle 100K requests per second across multiple servers. How would you approach this?",
+          "tags": ["system-design", "rate-limiting", "distributed-systems", "scalability"],
+          "follow_up_triggers": ["token-bucket-vs-leaky-bucket", "redis-role", "edge-cases"],
+          "ideal_length": "300-450 words",
+          "strong_answer_signals": ["specific algorithm chosen", "distributed state challenge acknowledged", "Redis or equivalent mentioned", "edge cases considered"]
+        },
+        {
+          "id": "se-be-t-002",
+          "question": "Explain how you'd design a database schema for an e-commerce order management system. How would it handle complex orders with multiple items, discounts, and partial fulfillments?",
+          "tags": ["database-design", "sql", "e-commerce", "normalization"],
+          "follow_up_triggers": ["indexing-strategy", "scaling-approach", "status-state-machine"],
+          "ideal_length": "300-400 words",
+          "strong_answer_signals": ["normalized schema design", "status state machine", "indexing strategy", "consideration of history/audit trail"]
+        },
+        {
+          "id": "se-be-t-003",
+          "question": "What's the difference between synchronous and asynchronous communication patterns in microservices? When do you choose one over the other?",
+          "tags": ["microservices", "async", "kafka", "api-design"],
+          "follow_up_triggers": ["message-queue-trade-offs", "eventual-consistency", "saga-pattern"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["specific trade-offs articulated", "examples of when each fits", "failure handling in async systems", "eventual consistency implications"]
+        }
+      ],
+      "ml_specific": [
+        {
+          "id": "se-ml-t-001",
+          "question": "Walk me through how you've taken a machine learning model from notebook to production. What was the hardest part of that process?",
+          "tags": ["mlops", "model-deployment", "production-ml"],
+          "follow_up_triggers": ["monitoring-strategy", "retraining", "a-b-testing"],
+          "ideal_length": "300-400 words",
+          "strong_answer_signals": ["specific MLOps tooling mentioned", "monitoring and drift detection", "A/B testing approach", "rollback strategy"]
+        },
+        {
+          "id": "se-ml-t-002",
+          "question": "You have a classification problem with significant class imbalance (99:1 negative to positive ratio). How do you handle this during training and evaluation?",
+          "tags": ["class-imbalance", "ml-fundamentals", "evaluation-metrics"],
+          "follow_up_triggers": ["SMOTE", "threshold-tuning", "business-impact-of-metrics"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["precision-recall trade-off", "AUROC vs accuracy distinction", "oversampling/undersampling techniques", "business context for metric choice"]
+        }
+      ]
+    },
+    "founders_round": [
+      {
+        "id": "se-f-001",
+        "question": "Looking at your experience, what's the biggest technical bet you've made that you weren't sure would work? How did you make the call?",
+        "tags": ["risk-taking", "decision-making", "ownership"],
+        "follow_up_triggers": ["uncertainty-management", "stakeholder-alignment", "outcome"],
+        "ideal_length": "250-350 words"
+      },
+      {
+        "id": "se-f-002",
+        "question": "Tell me about a time when you saw a systemic engineering problem that others had normalized. What did you do about it?",
+        "tags": ["initiative", "engineering-culture", "change-management"],
+        "follow_up_triggers": ["how-you-built-buy-in", "outcome", "resistance-faced"],
+        "ideal_length": "250-350 words"
+      },
+      {
+        "id": "se-f-003",
+        "question": "How do you think about the trade-off between moving fast with shortcuts versus doing it right? Give me a specific example.",
+        "tags": ["technical-judgment", "business-vs-engineering", "trade-offs"],
+        "follow_up_triggers": ["regret-about-decision", "how-you-communicated-trade-off"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "se-f-004",
+        "question": "If you were starting our engineering team from scratch, what's the first process or practice you'd put in place and why?",
+        "tags": ["engineering-leadership", "process", "culture"],
+        "follow_up_triggers": ["why-this-over-others", "resistance-anticipation", "measurement"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "se-f-005",
+        "question": "What's something you built that you're genuinely proud of? Not proud because it was technically clever, but proud because of its impact.",
+        "tags": ["impact", "ownership", "user-empathy"],
+        "follow_up_triggers": ["how-you-measured-impact", "tradeoffs-made", "what-youd-do-differently"],
+        "ideal_length": "250-350 words"
+      }
+    ],
+    "hr_round": [
+      {
+        "id": "se-hr-001",
+        "question": "Describe a time you had a serious disagreement with a colleague about a technical approach. How did you handle it?",
+        "tags": ["conflict-resolution", "collaboration", "technical-disagreement"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "se-hr-002",
+        "question": "What kind of engineering culture do you thrive in? Give me a specific example of a culture that brought out your best work.",
+        "tags": ["culture-fit", "self-awareness", "work-environment"],
+        "ideal_length": "200-250 words"
+      },
+      {
+        "id": "se-hr-003",
+        "question": "Tell me about a time you received critical feedback about your technical work. How did you respond?",
+        "tags": ["feedback", "growth-mindset", "self-awareness"],
+        "ideal_length": "150-250 words"
+      },
+      {
+        "id": "se-hr-004",
+        "question": "How do you stay current with new technologies and engineering practices? Walk me through what you've learned in the last 3 months.",
+        "tags": ["continuous-learning", "curiosity", "self-development"],
+        "ideal_length": "150-250 words"
+      },
+      {
+        "id": "se-hr-005",
+        "question": "Tell me about a time you mentored someone junior. What approach did you take and what was the outcome?",
+        "tags": ["mentorship", "leadership", "teaching"],
+        "ideal_length": "200-300 words"
+      }
+    ]
+  },
+  "product_management": {
+    "technical_round": {
+      "universal": [
+        {
+          "id": "pm-t-001",
+          "question": "Walk me through how you'd prioritize a backlog of 20 features when you have time for only 5 this quarter. What framework would you use and what data would you need?",
+          "tags": ["prioritization", "frameworks", "data-driven"],
+          "follow_up_triggers": ["rice-vs-icebreaker", "stakeholder-conflict", "what-you-deprioritized"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["named framework with trade-offs", "data sources mentioned", "stakeholder alignment approach", "what NOT to build decision"]
+        },
+        {
+          "id": "pm-t-002",
+          "question": "Tell me about a product you've shipped from ideation to launch. Walk me through the entire process — who was involved and what was your role at each stage?",
+          "tags": ["product-process", "cross-functional", "ownership"],
+          "follow_up_triggers": ["biggest-obstacle", "trade-offs-made", "metrics-post-launch"],
+          "ideal_length": "300-450 words",
+          "strong_answer_signals": ["clear ownership story", "specific cross-functional collaboration", "trade-offs acknowledged", "post-launch measurement"]
+        },
+        {
+          "id": "pm-t-003",
+          "question": "How do you define success for a new feature? Walk me through how you'd set up metrics for a feature designed to improve user activation.",
+          "tags": ["metrics", "success-definition", "analytics"],
+          "follow_up_triggers": ["leading-vs-lagging-indicators", "guardrail-metrics", "north-star"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["primary vs. guardrail metrics distinction", "leading indicators mentioned", "time-bound targets", "awareness of unintended consequences"]
+        },
+        {
+          "id": "pm-t-004",
+          "question": "Describe how you've used data to change a product decision that your gut was telling you to make differently.",
+          "tags": ["data-driven", "decision-making", "intellectual-humility"],
+          "follow_up_triggers": ["what-data-changed-your-mind", "stakeholder-reaction", "outcome"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific data mentioned", "honest about gut instinct", "clear decision process", "outcome measured"]
+        },
+        {
+          "id": "pm-t-005",
+          "question": "Walk me through how you'd design a user research plan to understand why a specific product metric is declining.",
+          "tags": ["user-research", "diagnosis", "methods"],
+          "follow_up_triggers": ["qualitative-vs-quantitative", "sample-size", "bias-avoidance"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["mixed-methods approach", "specific research methods named", "sample design considerations", "synthesis plan"]
+        },
+        {
+          "id": "pm-t-006",
+          "question": "Tell me about a time you had to say no to a feature request from a senior stakeholder. How did you do it?",
+          "tags": ["stakeholder-management", "prioritization", "courage"],
+          "follow_up_triggers": ["how-you-framed-the-no", "their-reaction", "alternative-offered"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["data or principle used to say no", "respectful but firm tone", "alternative offered", "long-term relationship maintained"]
+        },
+        {
+          "id": "pm-t-007",
+          "question": "How do you work with engineers? What does a good PM-engineering relationship look like, and give me a specific example of you doing it well.",
+          "tags": ["engineering-collaboration", "pm-engineering-relationship", "trust"],
+          "follow_up_triggers": ["when-it-broke-down", "technical-literacy", "shielding-vs-exposing"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific example given", "engineer perspective acknowledged", "technical curiosity shown", "clear ownership boundaries"]
+        }
+      ],
+      "growth_specific": [
+        {
+          "id": "pm-growth-t-001",
+          "question": "Walk me through a growth experiment you ran. What was the hypothesis, how did you design it, what happened, and what did you learn?",
+          "tags": ["experimentation", "growth", "a-b-testing", "hypothesis"],
+          "follow_up_triggers": ["statistical-significance", "edge-cases", "negative-results"],
+          "ideal_length": "300-400 words",
+          "strong_answer_signals": ["clear hypothesis statement", "control/treatment design", "statistical significance awareness", "honest about negative results"]
+        },
+        {
+          "id": "pm-growth-t-002",
+          "question": "How do you build a growth model for a product? Walk me through the key inputs you'd want to understand.",
+          "tags": ["growth-model", "metrics", "unit-economics"],
+          "follow_up_triggers": ["cac-ltv", "channel-mix", "bottleneck-identification"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["AARRR or similar framework", "CAC/LTV awareness", "channel attribution", "bottleneck identification"]
+        }
+      ],
+      "technical_pm_specific": [
+        {
+          "id": "pm-tech-t-001",
+          "question": "How do you write a PRD that engineers find useful versus one they ignore? What are the key elements and what do you leave out?",
+          "tags": ["prd-writing", "engineering-collaboration", "documentation"],
+          "follow_up_triggers": ["how-much-technical-detail", "when-to-skip-prd", "review-process"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific PRD structure given", "what NOT to include", "iteration process with engineering", "acceptance criteria mention"]
+        }
+      ]
+    },
+    "founders_round": [
+      {
+        "id": "pm-f-001",
+        "question": "Tell me about a product bet you made that most people around you thought was wrong. What made you push for it?",
+        "tags": ["conviction", "risk-taking", "judgment"],
+        "follow_up_triggers": ["how-you-validated", "resistance-you-faced", "outcome"],
+        "ideal_length": "250-350 words"
+      },
+      {
+        "id": "pm-f-002",
+        "question": "If you had to describe your product philosophy in 3 principles, what would they be and where did they come from?",
+        "tags": ["product-philosophy", "self-awareness", "intellectual-depth"],
+        "follow_up_triggers": ["where-each-came-from", "how-they-conflict", "example-of-each"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "pm-f-003",
+        "question": "What's a product that you think is massively underrated and why? What does it do right that most people miss?",
+        "tags": ["product-taste", "intellectual-curiosity", "analysis"],
+        "follow_up_triggers": ["what-makes-it-great", "why-others-miss-it", "what-youd-borrow"],
+        "ideal_length": "150-250 words"
+      },
+      {
+        "id": "pm-f-004",
+        "question": "Tell me about the worst product decision you've ever made. Not one that went wrong due to bad luck — one where you made the wrong call.",
+        "tags": ["accountability", "self-awareness", "growth-mindset"],
+        "follow_up_triggers": ["what-you-missed", "what-you-changed", "impact-of-decision"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "pm-f-005",
+        "question": "If you joined us tomorrow, what's the first thing you'd want to understand and how would you go about it?",
+        "tags": ["onboarding", "prioritization", "strategic-thinking"],
+        "follow_up_triggers": ["why-this-first", "how-youde-get-info", "what-youde-be-suspicious-of"],
+        "ideal_length": "200-300 words"
+      }
+    ],
+    "hr_round": [
+      {
+        "id": "pm-hr-001",
+        "question": "Tell me about a time you had to push back on your engineering team about technical complexity. How did you handle it?",
+        "tags": ["engineering-collaboration", "conflict-resolution", "judgment"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "pm-hr-002",
+        "question": "Describe the best product team you've worked on. What made it work, and what was your role in creating that environment?",
+        "tags": ["team-dynamics", "culture", "leadership"],
+        "ideal_length": "200-250 words"
+      },
+      {
+        "id": "pm-hr-003",
+        "question": "Tell me about a time you missed a product goal. What happened and what did you change afterward?",
+        "tags": ["accountability", "failure", "growth"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "pm-hr-004",
+        "question": "How do you stay connected with users on a day-to-day basis? What routines or practices do you have for this?",
+        "tags": ["user-empathy", "research", "customer-obsession"],
+        "ideal_length": "150-250 words"
+      },
+      {
+        "id": "pm-hr-005",
+        "question": "Where do you want to be in 5 years, and how does this role get you there?",
+        "tags": ["ambition", "career-vision", "role-fit"],
+        "ideal_length": "150-200 words"
+      }
+    ]
+  },
+  "business_strategy": {
+    "technical_round": {
+      "universal": [
+        {
+          "id": "biz-t-001",
+          "question": "Walk me through a business deal or partnership you closed. How did you identify the opportunity, build the relationship, and close it?",
+          "tags": ["deal-making", "relationship-building", "pipeline"],
+          "follow_up_triggers": ["obstacles-faced", "negotiation-tactics", "post-close-management"],
+          "ideal_length": "300-400 words",
+          "strong_answer_signals": ["specific deal size/impact", "relationship-building process", "negotiation strategy", "post-deal management"]
+        },
+        {
+          "id": "biz-t-002",
+          "question": "How do you prioritize which partnerships or business opportunities to pursue when you have more opportunities than bandwidth?",
+          "tags": ["prioritization", "strategic-thinking", "resource-allocation"],
+          "follow_up_triggers": ["framework-used", "deals-you-passed-on", "regrets"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["clear framework", "strategic vs. tactical distinction", "examples of passing on deals", "outcome measurement"]
+        },
+        {
+          "id": "biz-t-003",
+          "question": "Tell me about the most complex stakeholder situation you've navigated — multiple parties with different interests. How did you manage it?",
+          "tags": ["stakeholder-management", "negotiation", "diplomacy"],
+          "follow_up_triggers": ["competing-interests", "compromise-made", "outcome"],
+          "ideal_length": "250-350 words",
+          "strong_answer_signals": ["stakeholder mapping", "interest vs. position distinction", "compromise approach", "relationship maintained post-conflict"]
+        },
+        {
+          "id": "biz-t-004",
+          "question": "Build a simple financial model for a hypothetical partnership — what metrics would you include and how would you present the business case?",
+          "tags": ["financial-modeling", "business-case", "analytical-skills"],
+          "follow_up_triggers": ["key-assumptions", "sensitivity-analysis", "presentation-approach"],
+          "ideal_length": "200-300 words",
+          "strong_answer_signals": ["specific model components named", "assumption identification", "sensitivity analysis awareness", "executive summary approach"]
+        }
+      ]
+    },
+    "founders_round": [
+      {
+        "id": "biz-f-001",
+        "question": "What's the most creative deal structure you've seen or proposed? Why was the creativity necessary?",
+        "tags": ["creativity", "deal-structure", "problem-solving"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "biz-f-002",
+        "question": "Tell me about a deal that fell through despite your best efforts. What did you learn?",
+        "tags": ["resilience", "self-awareness", "learning"],
+        "ideal_length": "200-300 words"
+      },
+      {
+        "id": "biz-f-003",
+        "question": "How do you think about the relationship between BD and product? When does BD lead and when does product lead?",
+        "tags": ["strategic-thinking", "cross-functional", "business-model"],
+        "ideal_length": "200-250 words"
+      }
+    ],
+    "hr_round": [
+      {
+        "id": "biz-hr-001",
+        "question": "Tell me about a time you represented your company's values even when it meant losing a deal.",
+        "tags": ["values", "integrity", "long-term-thinking"],
+        "ideal_length": "200-250 words"
+      },
+      {
+        "id": "biz-hr-002",
+        "question": "How do you build genuine long-term relationships with partners, not just transactional ones?",
+        "tags": ["relationship-building", "trust", "long-term-thinking"],
+        "ideal_length": "150-250 words"
+      },
+      {
+        "id": "biz-hr-003",
+        "question": "Describe the culture of the best team you've worked on. What made it effective?",
+        "tags": ["culture-fit", "team-dynamics", "leadership"],
+        "ideal_length": "150-200 words"
+      }
+    ]
+  },
+  "universal_hr_questions": [
+    {
+      "id": "hr-u-001",
+      "question": "Tell me about yourself — but skip the resume walk-through. Tell me the story that the resume doesn't tell.",
+      "tags": ["self-presentation", "narrative", "personal-brand"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["coherent narrative arc", "genuine personality", "connects to role naturally", "not a chronological recitation"]
+    },
+    {
+      "id": "hr-u-002",
+      "question": "What's a belief you held strongly about your field 3 years ago that you no longer hold? What changed?",
+      "tags": ["growth-mindset", "intellectual-humility", "evolution"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["genuine shift, not trivial", "specific reason for change", "what you learned from being wrong", "how it changed your approach"]
+    },
+    {
+      "id": "hr-u-003",
+      "question": "Tell me about the most difficult feedback you've ever received. How did you react and what did you do with it?",
+      "tags": ["feedback", "growth-mindset", "emotional-intelligence"],
+      "ideal_length": "200-300 words",
+      "strong_answer_signals": ["honest about initial reaction", "specific action taken", "measurable change", "gratitude for feedback expressed"]
+    },
+    {
+      "id": "hr-u-004",
+      "question": "Outside of work, what's something you're genuinely passionate about? How does it show up in how you work?",
+      "tags": ["personal-interests", "personality", "culture-add"],
+      "ideal_length": "100-200 words",
+      "strong_answer_signals": ["genuine passion evident", "specific hobby or pursuit", "authentic connection to work style", "not performative"]
+    },
+    {
+      "id": "hr-u-005",
+      "question": "What would your manager say is your greatest strength? What would they say is your biggest area of development?",
+      "tags": ["self-awareness", "strengths", "growth-areas"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["matches manager's likely perspective", "specific strength with example", "honest development area (not fake weakness)", "concrete plan for development area"]
+    },
+    {
+      "id": "hr-u-006",
+      "question": "Why are you leaving your current role? And why now?",
+      "tags": ["motivation", "honesty", "push-vs-pull"],
+      "ideal_length": "100-200 words",
+      "strong_answer_signals": ["pull motivations stronger than push", "no badmouthing current employer", "specific pull to this company", "considered decision, not impulsive"]
+    },
+    {
+      "id": "hr-u-007",
+      "question": "Tell me about a time you worked with someone who was really difficult to work with. What made them difficult, and how did you handle it?",
+      "tags": ["collaboration", "conflict-resolution", "emotional-intelligence"],
+      "ideal_length": "200-300 words",
+      "strong_answer_signals": ["empathy for the other person", "ownership of your role in conflict", "specific resolution strategy", "relationship preserved or learned from"]
+    },
+    {
+      "id": "hr-u-008",
+      "question": "What's the proudest professional moment of your career so far? Why does it stand out?",
+      "tags": ["motivation", "values", "impact"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["specific and authentic", "explains why it matters beyond the outcome", "reveals values", "connects to what they want to do next"]
+    }
+  ],
+  "fresher_specific": [
+    {
+      "id": "fresh-001",
+      "question": "Tell me about a project from college or a personal project that you built from scratch. Walk me through your process.",
+      "tags": ["project-experience", "initiative", "technical-skills"],
+      "ideal_length": "200-300 words",
+      "strong_answer_signals": ["specific project with impact", "process described clearly", "obstacles faced and solved", "outcome measured"]
+    },
+    {
+      "id": "fresh-002",
+      "question": "You don't have much work experience yet — so tell me about a time you led something, even informally. What did you do and what was the outcome?",
+      "tags": ["leadership", "initiative", "impact"],
+      "ideal_length": "200-300 words",
+      "strong_answer_signals": ["genuine leadership moment", "team coordination evidence", "measurable outcome", "honest about what was hard"]
+    },
+    {
+      "id": "fresh-003",
+      "question": "What have you done outside of class that demonstrates your interest in this field?",
+      "tags": ["passion", "self-directed-learning", "initiative"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["specific activities", "continuous nature of interest", "built something or contributed", "not just 'I read articles'"]
+    },
+    {
+      "id": "fresh-004",
+      "question": "Tell me about a time you had to learn something entirely on your own without anyone teaching you. How did you approach it?",
+      "tags": ["self-directed-learning", "adaptability", "resourcefulness"],
+      "ideal_length": "150-250 words",
+      "strong_answer_signals": ["specific learning situation", "concrete methods used", "achieved something with the learning", "reflects on process quality"]
+    }
+  ]
+}

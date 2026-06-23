@@ -1,0 +1,208 @@
+[
+  {
+    "id": "first-shot",
+    "name": "First Shot",
+    "description": "Complete your first interview session",
+    "icon": "🎯",
+    "category": "milestone",
+    "condition_type": "session_count",
+    "condition_value": 1,
+    "rarity": "common"
+  },
+  {
+    "id": "on-fire",
+    "name": "On Fire",
+    "description": "Complete sessions 3 days in a row",
+    "icon": "🔥",
+    "category": "streak",
+    "condition_type": "current_streak",
+    "condition_value": 3,
+    "rarity": "common"
+  },
+  {
+    "id": "consistent",
+    "name": "Consistent",
+    "description": "Complete sessions 7 days in a row",
+    "icon": "💪",
+    "category": "streak",
+    "condition_type": "current_streak",
+    "condition_value": 7,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "two-week-warrior",
+    "name": "Two-Week Warrior",
+    "description": "Complete sessions 14 days in a row",
+    "icon": "⚔️",
+    "category": "streak",
+    "condition_type": "current_streak",
+    "condition_value": 14,
+    "rarity": "rare"
+  },
+  {
+    "id": "deep-thinker",
+    "name": "Deep Thinker",
+    "description": "Score 80+ on Technical Depth in 3 separate sessions",
+    "icon": "🧠",
+    "category": "skill",
+    "condition_type": "metric_threshold_count",
+    "condition_metric": "technical_depth",
+    "condition_value": 80,
+    "condition_count": 3,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "data-driven",
+    "name": "Data Driven",
+    "description": "Mention specific metrics or numbers in 5 consecutive answers",
+    "icon": "📊",
+    "category": "skill",
+    "condition_type": "consecutive_metric_mentions",
+    "condition_value": 5,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "smooth-talker",
+    "name": "Smooth Talker",
+    "description": "Achieve a filler word rate under 2% in a complete session",
+    "icon": "🎤",
+    "category": "skill",
+    "condition_type": "filler_word_rate_below",
+    "condition_value": 2,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "star-storyteller",
+    "name": "STAR Storyteller",
+    "description": "Score 90+ on STAR Compliance across an entire session",
+    "icon": "⭐",
+    "category": "skill",
+    "condition_type": "metric_threshold_single",
+    "condition_metric": "star_compliance",
+    "condition_value": 90,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "top-ten-percent",
+    "name": "Top 10%",
+    "description": "Reach the 90th percentile overall score for any role type",
+    "icon": "🏆",
+    "category": "achievement",
+    "condition_type": "percentile_threshold",
+    "condition_value": 90,
+    "rarity": "rare"
+  },
+  {
+    "id": "comeback-kid",
+    "name": "Comeback Kid",
+    "description": "Improve your overall score by 20+ points from the previous session",
+    "icon": "🔄",
+    "category": "improvement",
+    "condition_type": "score_delta",
+    "condition_value": 20,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "all-rounder",
+    "name": "All-Rounder",
+    "description": "Complete all 3 round types (Technical, Founders, HR) at least once",
+    "icon": "🌟",
+    "category": "milestone",
+    "condition_type": "all_round_types_completed",
+    "condition_value": 1,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "resume-pro",
+    "name": "Resume Pro",
+    "description": "Earn 5 or more green (strong) resume markers in a single session",
+    "icon": "📝",
+    "category": "skill",
+    "condition_type": "green_markers_count",
+    "condition_value": 5,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "role-master",
+    "name": "Role Master",
+    "description": "Complete 10 sessions for a single specific role type",
+    "icon": "🎓",
+    "category": "milestone",
+    "condition_type": "sessions_per_role",
+    "condition_value": 10,
+    "rarity": "rare"
+  },
+  {
+    "id": "mock-offer",
+    "name": "Mock Offer Earned",
+    "description": "Score 85+ overall in a complete 3-round sequence (Technical + Founders + HR)",
+    "icon": "💼",
+    "category": "achievement",
+    "condition_type": "full_sequence_score",
+    "condition_value": 85,
+    "rarity": "rare"
+  },
+  {
+    "id": "perfectionist",
+    "name": "Perfectionist",
+    "description": "Score 95+ overall in any single session",
+    "icon": "✨",
+    "category": "achievement",
+    "condition_type": "overall_score_threshold",
+    "condition_value": 95,
+    "rarity": "legendary"
+  },
+  {
+    "id": "early-bird",
+    "name": "Early Bird",
+    "description": "Complete a session before 8 AM",
+    "icon": "🌅",
+    "category": "fun",
+    "condition_type": "session_time_before",
+    "condition_value": "08:00",
+    "rarity": "common"
+  },
+  {
+    "id": "night-owl",
+    "name": "Night Owl",
+    "description": "Complete a session after 11 PM",
+    "icon": "🦉",
+    "category": "fun",
+    "condition_type": "session_time_after",
+    "condition_value": "23:00",
+    "rarity": "common"
+  },
+  {
+    "id": "explorer",
+    "name": "Explorer",
+    "description": "Practice with 5 different role types",
+    "icon": "🗺️",
+    "category": "milestone",
+    "condition_type": "unique_role_types",
+    "condition_value": 5,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "concise",
+    "name": "Crystal Clear",
+    "description": "Score 90+ on Answer Conciseness in a complete session",
+    "icon": "💎",
+    "category": "skill",
+    "condition_type": "metric_threshold_single",
+    "condition_metric": "answer_conciseness",
+    "condition_value": 90,
+    "rarity": "uncommon"
+  },
+  {
+    "id": "ownership-master",
+    "name": "Ownership Master",
+    "description": "Score 90+ on Ownership Signals across 5 sessions",
+    "icon": "🚀",
+    "category": "skill",
+    "condition_type": "metric_threshold_count",
+    "condition_metric": "ownership_signals",
+    "condition_value": 90,
+    "condition_count": 5,
+    "rarity": "rare"
+  }
+]
