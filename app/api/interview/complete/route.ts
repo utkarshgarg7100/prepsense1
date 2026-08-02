@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { getAIProvider } from '@/lib/ai/router'
 import {
   aggregateScoresForRound,
@@ -19,10 +19,14 @@ export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
+    const bypass = process.env.NEXT_PUBLIC_DEV_BYPASS === 'true'
+    const mockMode = bypass && process.env.MOCK_AI === 'true'
 
-    if (!user) {
+    if (!user && !bypass) {
       return NextResponse.json<ApiResponse<null>>({ data: null, error: 'Unauthorized' }, { status: 401 })
     }
+    const userId = user?.id ?? '00000000-0000-0000-0000-000000000000'
+    const db = bypass ? await createServiceClient() : supabase
 
     const body = await request.json()
     const parsed = CompleteSchema.safeParse(body)
@@ -32,11 +36,11 @@ export async function POST(request: NextRequest) {
 
     const { session_id, duration_seconds } = parsed.data
 
-    const { data: session } = await supabase
+    const { data: session } = await db
       .from('sessions')
       .select('*, resumes(*), job_descriptions(*)')
       .eq('id', session_id)
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .single()
 
     if (!session) {
@@ -44,7 +48,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Fetch all messages
-    const { data: messages } = await supabase
+    const { data: messages } = await db
       .from('messages')
       .select('*')
       .eq('session_id', session_id)
@@ -59,36 +63,50 @@ export async function POST(request: NextRequest) {
     // Compute scores
     const rawScores = aggregateScoresForRound(evaluations, session.round_type as RoundType, answers)
 
-    // Compute speech metrics
-    const speechMetrics = computeSpeechMetrics(
-      answers,
-      answers.map(a => {
-        const wc = a.split(/\s+/).length
-        return Math.round(wc * 0.4) // ~0.4s per word average
-      })
-    )
+    // Compute speech metrics. Prefer the timer value measured in the interview UI;
+    // fall back to a word-count estimate only for answers recorded before the
+    // `time_taken_seconds` column existed (or by clients that don't send it).
+    const durations = candidateMessages.map(m => {
+      const measured = m.time_taken_seconds
+      if (typeof measured === 'number' && measured > 0) return measured
+      const wc = m.content.split(/\s+/).filter(Boolean).length
+      return Math.round(wc * 0.4) // ~0.4s per word average
+    })
+    const speechMetrics = computeSpeechMetrics(answers, durations)
 
     // Compute percentile (simplified)
     const percentile = Math.min(99, Math.max(1, Math.round(((rawScores.overall_score ?? 0) - 40) * 2)))
 
     const finalScores = { ...rawScores, percentile }
 
-    // Save session scores
-    const { error: scoreError } = await supabase.from('session_scores').upsert({
+    // Save session scores. This is the point of the whole route — if it fails the
+    // report page has nothing to render, so fail loudly rather than redirecting the
+    // user to a blank report.
+    const { error: scoreError } = await db.from('session_scores').upsert({
       session_id,
-      user_id: user.id,
+      user_id: userId,
       ...finalScores,
       custom_metrics: {},
     })
 
-    // Save speech feedback
-    await supabase.from('speech_feedback').upsert({
+    if (scoreError) {
+      console.error('Failed to save session scores:', scoreError)
+      return NextResponse.json<ApiResponse<null>>(
+        { data: null, error: `Failed to save scores: ${scoreError.message}` },
+        { status: 500 }
+      )
+    }
+
+    // Save speech feedback. Non-fatal: the report degrades gracefully without it.
+    const { error: speechError } = await db.from('speech_feedback').upsert({
       session_id,
       ...speechMetrics,
     })
+    if (speechError) console.error('Failed to save speech feedback:', speechError)
 
-    // Mark session completed
-    await supabase
+    // Mark session completed. Fatal: a session left 'in_progress' will be resumed
+    // instead of reported, stranding the user in a finished interview.
+    const { error: sessionUpdateError } = await db
       .from('sessions')
       .update({
         status: 'completed',
@@ -97,37 +115,43 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', session_id)
 
+    if (sessionUpdateError) {
+      console.error('Failed to mark session completed:', sessionUpdateError)
+      return NextResponse.json<ApiResponse<null>>(
+        { data: null, error: `Failed to complete session: ${sessionUpdateError.message}` },
+        { status: 500 }
+      )
+    }
+
     // Update streak
     const today = new Date().toISOString().split('T')[0]
-    const { data: streak } = await supabase
+    const { data: streak } = await db
       .from('user_streaks')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .single()
 
     if (streak) {
       const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
       const isConsecutive = streak.last_session_date === yesterday
       const newStreak = isConsecutive ? streak.current_streak + 1 : 1
-      await supabase
+      await db
         .from('user_streaks')
         .update({
           current_streak: newStreak,
           longest_streak: Math.max(streak.longest_streak, newStreak),
           last_session_date: today,
         })
-        .eq('user_id', user.id)
+        .eq('user_id', userId)
     } else {
-      await supabase.from('user_streaks').insert({
-        user_id: user.id,
+      await db.from('user_streaks').insert({
+        user_id: userId,
         current_streak: 1,
         longest_streak: 1,
         last_session_date: today,
       })
     }
 
-    // Generate resume markers
-    const ai = await getAIProvider()
     const transcript: SessionData['transcript'] = []
 
     const msgList = messages ?? []
@@ -155,10 +179,26 @@ export async function POST(request: NextRequest) {
       gap_matrix: session.gap_matrix,
     }
 
-    const report = await ai.generateSessionReport(sessionData)
+    const report = mockMode
+      ? {
+          overall_summary: 'Good performance overall. You demonstrated solid communication skills and answered most questions clearly.',
+          strengths: ['Clear communication', 'Structured answers', 'Good enthusiasm for the role'],
+          areas_for_improvement: ['Add more quantifiable examples', 'Deeper technical depth on system design', 'More concise answers'],
+          question_wise_feedback: transcript.map((t, i) => ({
+            question_number: i + 1,
+            question: t.question,
+            feedback: 'Decent answer. Could be more specific with examples.',
+            score: t.evaluation?.depth_score ?? 70,
+          })),
+          recommended_resources: ['System Design Interview by Alex Xu', 'LeetCode top 150', 'STAR method practice'],
+          hiring_likelihood: 'Maybe' as const,
+          next_steps: ['Practice system design', 'Prepare 3–5 STAR stories', 'Research the company deeper'],
+        }
+      : await (await getAIProvider()).generateSessionReport(sessionData)
 
-    // Save resume markers if resume exists
-    if (session.resumes?.parsed_text) {
+    // Save resume markers if resume exists (skip in mock mode)
+    if (!mockMode && session.resumes?.parsed_text) {
+      const ai = await getAIProvider()
       const geminiProvider = ai as any
       if (typeof geminiProvider.generateResumeMarkers === 'function') {
         const markers = await geminiProvider.generateResumeMarkers(
@@ -167,7 +207,7 @@ export async function POST(request: NextRequest) {
           session.job_descriptions?.required_skills ?? []
         )
         if (Array.isArray(markers) && markers.length > 0) {
-          await supabase.from('resume_markers').insert(
+          await db.from('resume_markers').insert(
             markers.map((m: any) => ({ session_id, ...m }))
           )
         }
@@ -175,10 +215,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Award badges
-    await checkAndAwardBadges(supabase, user.id, finalScores, session)
+    await checkAndAwardBadges(db, userId, finalScores, session)
 
     // Update RL weak areas
-    await updateWeakAreas(supabase, user.id, evaluations, messages ?? [])
+    await updateWeakAreas(db, userId, evaluations, messages ?? [])
 
     return NextResponse.json<ApiResponse<{
       scores: typeof finalScores
@@ -189,9 +229,10 @@ export async function POST(request: NextRequest) {
       error: null,
     })
   } catch (err) {
-    console.error('Complete interview error:', err)
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('Complete interview error:', msg)
     return NextResponse.json<ApiResponse<null>>(
-      { data: null, error: 'Internal server error' },
+      { data: null, error: msg },
       { status: 500 }
     )
   }

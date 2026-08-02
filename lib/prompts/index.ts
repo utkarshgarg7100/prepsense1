@@ -59,6 +59,39 @@ Return ONLY valid JSON:
 Culture tags should reflect the actual company culture signals in the JD (e.g., "move fast", "data-driven", "customer-obsessed", "ownership", "collaboration", "innovation").
 Return ONLY JSON.`
 
+// ─── Custom JD fields ──────────────────────────────────────────────────────
+// A seeded JD arrives with company, role and tier already filled in. A JD the user
+// pastes is just prose, so those fields have to be recovered from the text before it
+// can sit in the same table and drive the same prompts.
+//
+// The enums are closed sets: `role_type` and `company_tier` are Postgres enum columns,
+// so an invented value is rejected by the database rather than degrading gracefully.
+// The prompt therefore lists the allowed values and the caller validates anyway.
+// "Unknown" is an explicitly permitted answer — a JD that never names its company is
+// common, and inventing one would put a false name in front of the candidate.
+export const JD_FIELDS_PROMPT = `You are reading a job description and extracting its metadata.
+
+Return ONLY valid JSON:
+{
+  "company_name": "the hiring company, or \\"Unknown\\" if the JD never names it",
+  "role_subtype": "the job title as advertised, e.g. \\"Backend Engineer\\"",
+  "role_type": "one of: Software Engineering | Product Management | Business & Strategy | Design | Data & Analytics | Operations",
+  "company_tier": "one of: FAANG | Indian Unicorn | Global MNC | Series B Startup | Other",
+  "industry": "the sector, e.g. \\"Fintech\\", \\"Healthcare\\", \\"E-commerce\\"",
+  "seniority": "one of: intern | junior | mid | senior | staff | lead | manager",
+  "required_skills": ["skills the JD states as required"],
+  "nice_to_have_skills": ["skills the JD lists as preferred or bonus"],
+  "culture_tags": ["culture signals in the JD, e.g. \\"ownership\\", \\"fast-paced\\""]
+}
+
+Rules:
+- Use ONLY the listed values for role_type and company_tier. If unsure, use "Other" for
+  company_tier and the closest match for role_type.
+- Only use FAANG, Indian Unicorn, Global MNC or Series B Startup when the company is
+  clearly one of those. Otherwise "Other".
+- Do not invent skills the JD does not mention.
+Return ONLY JSON.`
+
 // ─── Gap Matrix ────────────────────────────────────────────────────────────
 export const GAP_MATRIX_PROMPT = `You are analyzing a candidate's resume skills against a job description.
 
@@ -177,10 +210,25 @@ Previous conversation context (last 3 Q&As):
 Claims the candidate has made in this session so far:
 {claims_history}
 
-Evaluate the answer and return ONLY valid JSON:
+Score the answer by filling in a worksheet. Award each component its points, and
+justify every award with a quote from the candidate's own words.
+
+Return ONLY valid JSON:
 {
-  "star_compliance": 0-100,
-  "depth_score": 0-100,
+  "score_breakdown": {
+    "star": [
+      { "name": "Situation", "points": 0-20, "max_points": 20, "verdict": "strong|partial|missing", "evidence": "exact quote from their answer, or null if absent", "reason": "one sentence: why this many points", "fix": "the specific thing that would have earned the rest" },
+      { "name": "Task", "points": 0-20, "max_points": 20, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." },
+      { "name": "Action", "points": 0-40, "max_points": 40, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." },
+      { "name": "Result", "points": 0-20, "max_points": 20, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." }
+    ],
+    "depth": [
+      { "name": "Specificity", "points": 0-25, "max_points": 25, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." },
+      { "name": "Metrics & Evidence", "points": 0-25, "max_points": 25, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." },
+      { "name": "Technical Accuracy", "points": 0-25, "max_points": 25, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." },
+      { "name": "Trade-offs & Judgement", "points": 0-25, "max_points": 25, "verdict": "...", "evidence": "...", "reason": "...", "fix": "..." }
+    ]
+  },
   "claims_made": ["specific claim 1", "specific claim 2"],
   "follow_up_worthy": true/false,
   "suggested_follow_up": "specific follow-up question if follow_up_worthy is true, else null",
@@ -189,9 +237,21 @@ Evaluate the answer and return ONLY valid JSON:
   "strong_answer_example": "What an excellent answer to this question would include (2-3 sentences)"
 }
 
-Scoring guidelines:
-- star_compliance: Does the answer have Situation(20) + Task(20) + Action(40) + Result(20)? For technical questions, adapt: Problem(20) + Approach(20) + Implementation(40) + Outcome(20)
-- depth_score: Specificity, metrics, technical accuracy, real-world applicability. Penalize buzzwords without substance.
+Rules for the worksheet — these are what make the score defensible:
+- **Every non-zero score needs a quote.** If you cannot quote the answer to support the
+  points, award fewer points. "evidence" must be text copied from their answer, not a
+  paraphrase.
+- **A missing component scores 0 with evidence: null.** Do not award sympathy points for
+  something the candidate did not say.
+- **"reason" explains this score specifically** — not what the component means in general.
+  Say what they did or failed to do.
+- **"fix" must be actionable and concrete.** "Add a metric" is weak; "state how much the
+  latency dropped and over what period" is right.
+- For technical questions adapt the STAR names: Situation→Problem, Task→Approach,
+  Action→Implementation, Result→Outcome. Keep the same point values.
+- Penalize buzzwords without substance. Confident phrasing is not evidence.
+
+Other fields:
 - follow_up_worthy: true if they mentioned a specific project/tool/decision worth probing deeper
 - consistency_flags: Compare claims_made in THIS answer against claims_history from previous answers
 

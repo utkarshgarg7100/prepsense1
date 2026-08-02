@@ -46,6 +46,19 @@ export interface ParsedResume {
   inferred_primary_role: string
 }
 
+/**
+ * Output of the classical resume/JD parser (Model 5). `gaps` and `priors` are
+ * indexed by the fixed topic order in `topics` — every consumer relies on that,
+ * so the arrays are always full length even for empty or unparseable input.
+ */
+export interface ResumeGapAnalysis {
+  topics: string[]
+  gaps: number[]
+  priors: Record<string, number>
+  weakest_topics: string[]
+  explanations: string[]
+}
+
 export interface Resume {
   id: string
   user_id: string
@@ -62,7 +75,10 @@ export interface Resume {
 }
 
 // ─── Job Description ───────────────────────────────────────────────────────
-export type CompanyTier = 'FAANG' | 'Indian Unicorn' | 'Global MNC' | 'Series B Startup'
+// 'Other' exists for user-supplied JDs (migration 010). A pasted JD is usually from a
+// company that fits none of the four seeded tiers, and forcing one would put a false
+// signal into the interviewer prompt, which reads tier.
+export type CompanyTier = 'FAANG' | 'Indian Unicorn' | 'Global MNC' | 'Series B Startup' | 'Other'
 
 export type RoleType =
   | 'Software Engineering'
@@ -85,6 +101,9 @@ export interface JobDescription {
   culture_tags: string[]
   is_sample: boolean
   created_at: string
+  // NULL for the seeded library; the owner's id for a JD they pasted or uploaded.
+  // Optional because every existing query selecting `*` predates the column.
+  user_id?: string | null
 }
 
 // ─── Session ───────────────────────────────────────────────────────────────
@@ -108,6 +127,37 @@ export interface Session {
 // ─── Messages ──────────────────────────────────────────────────────────────
 export type MessageRole = 'interviewer' | 'candidate'
 
+/**
+ * One line of the scoring worksheet: a named component, what it earned, and why.
+ *
+ * `evidence` is a verbatim quote from the candidate's answer, or null when the
+ * component is absent — which is itself the explanation for a zero. Requiring a quote
+ * is what stops the model from asserting a score it cannot point at.
+ */
+export interface ScoreCriterion {
+  name: string
+  points: number
+  max_points: number
+  verdict: 'strong' | 'partial' | 'missing'
+  evidence: string | null
+  reason: string
+  /** The specific thing that would have earned the remaining points. */
+  fix: string
+}
+
+/**
+ * The itemised basis for the two headline scores.
+ *
+ * The headline numbers are **derived from these items**, not stated alongside them —
+ * see `reconcileEvaluation`. A model asked for a score and a justification separately
+ * will happily produce a 40 explained by reasoning that adds up to 75, and the
+ * candidate then cannot tell which to believe.
+ */
+export interface ScoreBreakdown {
+  star: ScoreCriterion[]
+  depth: ScoreCriterion[]
+}
+
 export interface AnswerEvaluation {
   star_compliance: number
   depth_score: number
@@ -117,6 +167,11 @@ export interface AnswerEvaluation {
   consistency_flags: string[]
   answer_summary: string
   strong_answer_example: string
+  /**
+   * Optional: answers evaluated before this feature existed have none, and mock mode
+   * may omit it. Every consumer must tolerate its absence rather than assume it.
+   */
+  score_breakdown?: ScoreBreakdown
 }
 
 export interface Message {
@@ -128,6 +183,8 @@ export interface Message {
   question_type: string | null
   question_tags: string[]
   answer_evaluation: AnswerEvaluation | null
+  /** Seconds spent answering. NULL for interviewer messages and pre-migration rows. */
+  time_taken_seconds?: number | null
 }
 
 // ─── Scores ────────────────────────────────────────────────────────────────
@@ -182,6 +239,12 @@ export interface SpeechFeedback {
   session_id: string
   filler_word_count: number
   filler_words: Record<string, number>
+  /**
+   * 'measured' — the transcript contained hesitations, so the count is real.
+   * 'understated' — no hesitations at all, meaning the answers were typed or the
+   * transcript was cleaned up. The count is a floor, not a measurement.
+   */
+  filler_confidence?: 'measured' | 'understated'
   avg_answer_length_seconds: number
   ideal_range_min: number
   ideal_range_max: number
@@ -253,6 +316,16 @@ export interface InterviewContext {
   claims_history: string[]
   question_plan: QuestionPlan
   current_question_index: number
+  /**
+   * The topic Model 1 selected for this question, and how hard to pitch it.
+   *
+   * This is the division of labour Phase 5 establishes: the **controller decides what
+   * to ask about**, the LLM decides *how to ask it*. Left undefined when the chooser is
+   * disabled or the question is a follow-up, in which case the static question plan
+   * drives as it did before — so every provider that ignores this field still works.
+   */
+  chosen_topic?: string
+  chosen_difficulty?: 'easy' | 'medium' | 'hard'
 }
 
 export interface ConversationTurn {

@@ -6,14 +6,12 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import {
-  RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer,
-  Tooltip,
-} from 'recharts'
+import { TopicRadar } from '@/components/knowledge/TopicRadar'
 import {
   ArrowLeft, Star, Mic, Target, AlertTriangle, CheckCircle2, ChevronDown, ChevronUp,
 } from 'lucide-react'
 import type { Message } from '@/types'
+import { ScoreBreakdownPanel } from './ScoreBreakdown'
 
 interface Props {
   session: any
@@ -100,6 +98,13 @@ function MessageThread({ messages }: { messages: Message[] }) {
                         <span className="text-yellow-400">Fillers: {eval_.filler_word_count}</span>
                       )}
                     </div>
+
+                    {/* Why those two numbers are what they are. */}
+                    <ScoreBreakdownPanel
+                      breakdown={eval_.score_breakdown}
+                      starScore={eval_.star_compliance}
+                      depthScore={eval_.depth_score}
+                    />
                     {eval_.strengths?.length > 0 && (
                       <div>
                         <span className="text-emerald-400 font-semibold">Strengths:</span>
@@ -136,13 +141,18 @@ export function ReportView({ session, scores, messages, markers, speech }: Props
   const jd = session.job_descriptions
   const overall = scores?.overall_score ?? 0
 
+  // Shares `TopicRadar` with the dashboard's knowledge map. The two show different
+  // things — these are six rubric dimensions from *this* session, the map shows fifteen
+  // persistent topic masteries — so the component takes generic labelled points and each
+  // caller supplies the meaning. Values are divided by 100 because `TopicRadar` works in
+  // the 0–1 probability space the scorecard uses.
   const radarData = scores ? [
-    { subject: 'Communication', value: scores.communication_score ?? 0 },
-    { subject: 'Technical', value: scores.technical_depth ?? 0 },
-    { subject: 'STAR', value: scores.star_compliance ?? 0 },
-    { subject: 'Ownership', value: scores.ownership_signals ?? 0 },
-    { subject: 'Conciseness', value: scores.conciseness ?? 0 },
-    { subject: 'Consistency', value: scores.consistency_score ?? 0 },
+    { label: 'Communication', value: (scores.communication_score ?? 0) / 100 },
+    { label: 'Technical', value: (scores.technical_depth ?? 0) / 100 },
+    { label: 'STAR', value: (scores.star_compliance ?? 0) / 100 },
+    { label: 'Ownership', value: (scores.ownership_signals ?? 0) / 100 },
+    { label: 'Conciseness', value: (scores.conciseness ?? 0) / 100 },
+    { label: 'Consistency', value: (scores.consistency_score ?? 0) / 100 },
   ] : []
 
   return (
@@ -193,24 +203,8 @@ export function ReportView({ session, scores, messages, markers, speech }: Props
               </div>
 
               {/* Radar chart */}
-              <div className="flex-1 h-52">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={radarData}>
-                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-                    <Radar
-                      name="Score"
-                      dataKey="value"
-                      stroke="oklch(0.623 0.214 263.8)"
-                      fill="oklch(0.623 0.214 263.8)"
-                      fillOpacity={0.2}
-                    />
-                    <Tooltip
-                      contentStyle={{ background: '#1e293b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
-                      labelStyle={{ color: '#fff' }}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
+              <div className="flex-1">
+                <TopicRadar points={radarData} height={208} />
               </div>
             </div>
           </CardContent>
@@ -256,11 +250,24 @@ export function ReportView({ session, scores, messages, markers, speech }: Props
                 </div>
               )}
               {speech.filler_word_count != null && (
-                <div className="flex justify-between">
-                  <span className="text-slate-400">Filler words</span>
-                  <span className={`font-semibold ${speech.filler_word_count > 10 ? 'text-rose-400' : 'text-emerald-400'}`}>
-                    {speech.filler_word_count}
-                  </span>
+                <div className="space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Filler words</span>
+                    <span className={`font-semibold ${
+                      speech.filler_confidence === 'understated' ? 'text-slate-400'
+                      : speech.filler_word_count > 10 ? 'text-rose-400'
+                      : 'text-emerald-400'
+                    }`}>
+                      {speech.filler_word_count}
+                      {speech.filler_confidence === 'understated' && '+'}
+                    </span>
+                  </div>
+                  {speech.filler_confidence === 'understated' && (
+                    <p className="text-xs text-slate-500">
+                      Typed answers, or a transcript with hesitations removed — treat this
+                      as a floor. Answer by voice for a real filler count.
+                    </p>
+                  )}
                 </div>
               )}
               {speech.avg_answer_length && (

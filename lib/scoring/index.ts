@@ -1,9 +1,19 @@
 import type { RoundType, SessionScores, Message, AnswerEvaluation } from '@/types'
 
-const FILLER_WORDS = [
-  'um', 'uh', 'like', 'basically', 'you know', 'kind of', 'sort of',
+// Split deliberately. HESITATIONS are vocal sounds that only exist in speech; an ASR
+// model that has been told to clean up its output removes them, and a typed answer
+// never contains them. DISCOURSE_MARKERS are real words that survive both. So the
+// presence of hesitations is our signal that the text we are scoring is a verbatim
+// transcript — without it, a filler count of 0 means "we cannot see fillers", not
+// "the candidate used none". See `filler_confidence` in computeSpeechMetrics.
+const HESITATIONS = ['um', 'umm', 'uh', 'uhh', 'erm', 'er', 'ah', 'hmm', 'mm']
+
+const DISCOURSE_MARKERS = [
+  'like', 'basically', 'you know', 'kind of', 'sort of',
   'right', 'so', 'yeah', 'literally', 'honestly', 'obviously', 'actually',
 ]
+
+const FILLER_WORDS = [...HESITATIONS, ...DISCOURSE_MARKERS]
 
 export function countFillerWords(text: string): Record<string, number> {
   const lower = text.toLowerCase()
@@ -173,6 +183,12 @@ export function computeSpeechMetrics(answers: string[], durationSeconds: number[
   const allText = answers.join(' ')
   const fillerWords = countFillerWords(allText)
   const totalFillers = Object.values(fillerWords).reduce((a, b) => a + b, 0)
+  const hesitationCount = HESITATIONS.reduce((n, w) => n + (fillerWords[w] ?? 0), 0)
+  // No "um"/"uh" anywhere in a whole interview is not plausible speech — it means the
+  // answers were typed, or the transcript was cleaned. Report that instead of
+  // congratulating the candidate on a filler count we never actually observed.
+  const fillerConfidence: 'measured' | 'understated' =
+    hesitationCount > 0 ? 'measured' : 'understated'
   const avgDuration = avg(durationSeconds)
   const deflection = detectDeflection(allText)
   const hedging = detectHedging(allText)
@@ -187,6 +203,7 @@ export function computeSpeechMetrics(answers: string[], durationSeconds: number[
   return {
     filler_word_count: totalFillers,
     filler_words: fillerWords,
+    filler_confidence: fillerConfidence,
     avg_answer_length_seconds: Math.round(avgDuration),
     ideal_range_min: 60,
     ideal_range_max: 120,

@@ -4,12 +4,14 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { JobDescription } from '@/types'
-import { Building2, Play } from 'lucide-react'
+import { Building2, Play, Trash2 } from 'lucide-react'
 
 interface Props {
   jd: JobDescription
   onSelect: () => void
   isSelected: boolean
+  /** Present only for the user's own JDs; seeded ones cannot be deleted. */
+  onDelete?: () => void
 }
 
 const TIER_COLORS: Record<string, string> = {
@@ -17,6 +19,7 @@ const TIER_COLORS: Record<string, string> = {
   'Indian Unicorn': 'bg-orange-500/20 text-orange-400 border-orange-500/30',
   'Global MNC': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
   'Series B Startup': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+  'Other': 'bg-slate-500/20 text-slate-300 border-slate-500/30',
 }
 
 const COMPANY_INITIALS: Record<string, string> = {
@@ -27,7 +30,8 @@ const COMPANY_INITIALS: Record<string, string> = {
   Zepto: 'ZP',
 }
 
-export function JDCard({ jd, onSelect, isSelected }: Props) {
+export function JDCard({ jd, onSelect, isSelected, onDelete }: Props) {
+  const isCustom = !!jd.user_id
   return (
     <Card
       className={`border-white/10 bg-card hover:border-primary/30 transition-all cursor-pointer ${
@@ -48,9 +52,25 @@ export function JDCard({ jd, onSelect, isSelected }: Props) {
         </div>
 
         {/* Tier */}
-        <Badge className={`text-xs ${TIER_COLORS[jd.company_tier] ?? ''}`}>
-          {jd.company_tier}
-        </Badge>
+        <div className="flex items-center gap-2 flex-wrap">
+          <Badge className={`text-xs ${TIER_COLORS[jd.company_tier] ?? ''}`}>
+            {jd.company_tier}
+          </Badge>
+          {isCustom && (
+            <Badge className="text-xs bg-primary/20 text-primary border-primary/30">
+              Yours
+            </Badge>
+          )}
+          {isCustom && onDelete && (
+            <button
+              aria-label="Delete this job description"
+              className="ml-auto text-slate-500 hover:text-red-400 transition-colors"
+              onClick={e => { e.stopPropagation(); onDelete() }}
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
 
         {/* Skills */}
         <div className="flex flex-wrap gap-1">

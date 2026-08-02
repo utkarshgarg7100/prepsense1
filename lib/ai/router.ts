@@ -1,32 +1,25 @@
 import type { AIProvider } from './types'
 
-type ProviderName = 'gemini' | 'claude' | 'openai'
-
+/**
+ * Returns the AI provider.
+ *
+ * There is exactly one: Groq. This used to switch on ACTIVE_AI_PROVIDER across
+ * five providers, which meant a typo in that variable — or simply forgetting to
+ * set it — silently selected Gemini instead, since Gemini was the `default`
+ * branch. A misconfigured environment produced a working-looking app answering
+ * with a different model than intended, which is not something you notice by
+ * reading a transcript.
+ *
+ * One provider means one prompt path to reason about, one set of quirks (Groq's
+ * native JSON mode), one key to configure, and one bill.
+ */
 let providerInstance: AIProvider | null = null
 
 export async function getAIProvider(): Promise<AIProvider> {
-  if (providerInstance) return providerInstance
+  // Always re-create in development so model changes take effect without restart
+  if (providerInstance && process.env.NODE_ENV === 'production') return providerInstance
 
-  const activeProvider = (process.env.ACTIVE_AI_PROVIDER ?? 'gemini') as ProviderName
-
-  switch (activeProvider) {
-    case 'claude': {
-      const { ClaudeProvider } = await import('./claude')
-      providerInstance = new ClaudeProvider()
-      break
-    }
-    case 'openai': {
-      const { OpenAIProvider } = await import('./openai')
-      providerInstance = new OpenAIProvider()
-      break
-    }
-    case 'gemini':
-    default: {
-      const { GeminiProvider } = await import('./gemini')
-      providerInstance = new GeminiProvider()
-      break
-    }
-  }
-
+  const { GroqProvider } = await import('./groq')
+  providerInstance = new GroqProvider()
   return providerInstance
 }

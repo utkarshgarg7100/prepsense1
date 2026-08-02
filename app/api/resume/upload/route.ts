@@ -60,11 +60,18 @@ export async function POST(request: NextRequest) {
     // Parse PDF text server-side
     let parsedText = ''
     try {
-      const pdfParse = (await import('pdf-parse')).default
+      // pdf-parse v2 replaced the default-export function with a PDFParse class;
+      // the old `pdfParse(buffer)` call silently no longer exists.
+      const { PDFParse } = await import('pdf-parse')
       const arrayBuffer = await file.arrayBuffer()
-      const buffer = Buffer.from(arrayBuffer)
-      const pdfData = await pdfParse(buffer)
-      parsedText = pdfData.text ?? ''
+      const parser = new PDFParse({ data: new Uint8Array(arrayBuffer) })
+      try {
+        const pdfData = await parser.getText()
+        parsedText = pdfData.text ?? ''
+      } finally {
+        // Releases the underlying worker; without this the route leaks one per upload.
+        await parser.destroy()
+      }
     } catch (pdfErr) {
       console.error('PDF parse error:', pdfErr)
       // Continue with empty text — AI parse step can still extract from URL

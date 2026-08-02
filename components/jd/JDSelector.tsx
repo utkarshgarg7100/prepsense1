@@ -13,9 +13,11 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { JDCard } from './JDCard'
+import { CustomJDPanel } from './CustomJDPanel'
 import { InterviewBriefModal } from './InterviewBriefModal'
 import type { JobDescription, RoundType, RoleType } from '@/types'
 import { Search, Shuffle } from 'lucide-react'
+import { toast } from 'sonner'
 
 const ROLE_TYPES: RoleType[] = [
   'Software Engineering',
@@ -33,6 +35,11 @@ interface Props {
 
 export function JDSelector({ jds, hasResume }: Props) {
   const router = useRouter()
+  // JDs the user creates in this session are held locally as well as refreshed from the
+  // server: `router.refresh()` is not synchronous, and a newly saved JD vanishing from
+  // the grid for a moment reads as "it didn't save".
+  const [added, setAdded] = useState<JobDescription[]>([])
+  const [deleted, setDeleted] = useState<Set<string>>(new Set())
   const [search, setSearch] = useState('')
   const [roleFilter, setRoleFilter] = useState<string>('all')
   const [tierFilter, setTierFilter] = useState<string>('all')
@@ -40,8 +47,36 @@ export function JDSelector({ jds, hasResume }: Props) {
   const [roundType, setRoundType] = useState<RoundType>('technical')
   const [showBrief, setShowBrief] = useState(false)
 
+  const allJds = useMemo(() => {
+    const byId = new Map<string, JobDescription>()
+    for (const jd of [...added, ...jds]) if (!byId.has(jd.id)) byId.set(jd.id, jd)
+    // Your own JDs sort first — you came here to use the one you just added, not to
+    // scroll past twenty seeded ones to find it.
+    return [...byId.values()]
+      .filter(jd => !deleted.has(jd.id))
+      .sort((a, b) => Number(!!b.user_id) - Number(!!a.user_id))
+  }, [jds, added, deleted])
+
+  const handleDelete = async (jd: JobDescription) => {
+    setDeleted(prev => new Set(prev).add(jd.id))
+    const res = await fetch(`/api/jd/custom?id=${encodeURIComponent(jd.id)}`, { method: 'DELETE' })
+    const { error } = await res.json()
+    if (error) {
+      // Put it back rather than leaving the grid disagreeing with the database.
+      setDeleted(prev => {
+        const next = new Set(prev)
+        next.delete(jd.id)
+        return next
+      })
+      toast.error(error)
+      return
+    }
+    toast.success('Job description removed')
+    router.refresh()
+  }
+
   const filtered = useMemo(() => {
-    return jds.filter(jd => {
+    return allJds.filter(jd => {
       const matchSearch =
         !search ||
         jd.company_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -51,11 +86,11 @@ export function JDSelector({ jds, hasResume }: Props) {
       const matchTier = tierFilter === 'all' || jd.company_tier === tierFilter
       return matchSearch && matchRole && matchTier
     })
-  }, [jds, search, roleFilter, tierFilter])
+  }, [allJds, search, roleFilter, tierFilter])
 
   const handleSurprise = () => {
-    if (jds.length === 0) return
-    const random = jds[Math.floor(Math.random() * jds.length)]
+    if (allJds.length === 0) return
+    const random = allJds[Math.floor(Math.random() * allJds.length)]
     setSelectedJD(random)
     setShowBrief(true)
   }
@@ -81,7 +116,8 @@ export function JDSelector({ jds, hasResume }: Props) {
 
     const { data, error } = await res.json()
     if (error || !data) {
-      alert('Failed to start session: ' + (error ?? 'Unknown error'))
+      toast.error(error ?? 'Failed to start session')
+      setShowBrief(true) // re-open modal so user can try again
       return
     }
     router.push(`/interview/${data.session.id}`)
@@ -130,6 +166,16 @@ export function JDSelector({ jds, hasResume }: Props) {
         >
           <Shuffle className="w-4 h-4" /> Surprise Me
         </Button>
+        <CustomJDPanel
+          onCreated={jd => {
+            setAdded(prev => [jd, ...prev])
+            // Straight into the brief: the user pasted a specific job because they want
+            // to practise for it now, so making them find their own card first is a
+            // step with no purpose.
+            setSelectedJD(jd)
+            setShowBrief(true)
+          }}
+        />
       </div>
 
       {/* Round selector */}
@@ -182,6 +228,7 @@ export function JDSelector({ jds, hasResume }: Props) {
               jd={jd}
               onSelect={() => handleSelect(jd)}
               isSelected={selectedJD?.id === jd.id}
+              onDelete={jd.user_id ? () => handleDelete(jd) : undefined}
             />
           ))}
         </div>

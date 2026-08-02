@@ -3,16 +3,18 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Play, Trophy, TrendingUp, Flame, Target, ArrowRight } from 'lucide-react'
+import { Play, PlayCircle, Trophy, TrendingUp, Flame, Target, ArrowRight } from 'lucide-react'
 import { ProgressChart } from '@/components/dashboard/ProgressChart'
 import { BadgeGrid } from '@/components/dashboard/BadgeGrid'
 import { WeakAreaPanel } from '@/components/dashboard/WeakAreaPanel'
+import { KnowledgeMap } from '@/components/knowledge/KnowledgeMap'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
+  if (!user && process.env.NEXT_PUBLIC_DEV_BYPASS !== 'true') return null
 
+  const uid = user?.id ?? ''
   const [
     { data: profile },
     { data: sessions },
@@ -20,35 +22,49 @@ export default async function DashboardPage() {
     { data: achievements },
     { data: weakAreas },
     { data: scores },
-  ] = await Promise.all([
-    supabase.from('profiles').select('*').eq('id', user.id).single(),
+    { data: paused },
+  ] = uid ? await Promise.all([
+    supabase.from('profiles').select('*').eq('id', uid).single(),
     supabase
       .from('sessions')
       .select('*, session_scores(*), job_descriptions(company_name, role_subtype)')
-      .eq('user_id', user.id)
+      .eq('user_id', uid)
       .eq('status', 'completed')
       .order('completed_at', { ascending: false })
       .limit(10),
-    supabase.from('user_streaks').select('*').eq('user_id', user.id).single(),
+    supabase.from('user_streaks').select('*').eq('user_id', uid).single(),
     supabase
       .from('user_achievements')
       .select('*, badges(*)')
-      .eq('user_id', user.id)
+      .eq('user_id', uid)
       .order('earned_at', { ascending: false })
       .limit(6),
     supabase
       .from('user_weak_areas')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', uid)
       .order('avg_score', { ascending: true })
       .limit(5),
     supabase
       .from('session_scores')
       .select('overall_score, created_at, sessions(round_type)')
-      .eq('user_id', user.id)
+      .eq('user_id', uid)
       .order('created_at', { ascending: false })
       .limit(10),
-  ])
+    // Interviews left open. Answers are persisted per question, so an `in_progress`
+    // row is genuinely resumable — but until now nothing in the UI led back to one,
+    // so a session left mid-way was invisible and effectively lost.
+    supabase
+      .from('sessions')
+      .select('id, round_type, created_at, job_descriptions(company_name, role_subtype)')
+      .eq('user_id', uid)
+      .eq('status', 'in_progress')
+      .order('created_at', { ascending: false })
+      .limit(3),
+  ]) : [
+    { data: null }, { data: [] }, { data: null },
+    { data: [] }, { data: [] }, { data: [] }, { data: [] },
+  ]
 
   const completedCount = sessions?.length ?? 0
   const avgScore = sessions?.length
@@ -79,6 +95,44 @@ export default async function DashboardPage() {
           </Button>
         </Link>
       </div>
+
+      {/* Resume an interview left open. Placed above the stats because it is the only
+          time-sensitive thing on this page — an unfinished interview is work already
+          done that is one click from being continued. */}
+      {(paused ?? []).length > 0 && (
+        <div className="space-y-2">
+          {(paused ?? []).map(session => {
+            // PostgREST types an embedded relation as an array even when it resolves to
+            // at most one row, so it is narrowed here rather than at each use.
+            const jd = Array.isArray(session.job_descriptions)
+              ? session.job_descriptions[0]
+              : session.job_descriptions
+            return (
+            <Link key={session.id} href={`/interview/${session.id}`} className="block">
+              <div className="flex items-center justify-between gap-4 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 hover:bg-primary/15 transition-colors">
+                <div className="flex items-center gap-3 min-w-0">
+                  <PlayCircle className="w-5 h-5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold truncate">
+                      Continue your {session.round_type} interview
+                    </p>
+                    <p className="text-xs text-slate-400 truncate">
+                      {jd?.company_name ?? 'General'}
+                      {jd?.role_subtype ? ` — ${jd.role_subtype}` : ''}
+                      {' · started '}
+                      {new Date(session.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                <Button size="sm" className="bg-primary hover:bg-primary/90 shrink-0">
+                  Resume
+                </Button>
+              </div>
+            </Link>
+            )
+          })}
+        </div>
+      )}
 
       {/* Stats row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -123,6 +177,13 @@ export default async function DashboardPage() {
           </Card>
         ))}
       </div>
+
+      {/* Knowledge Map (Model 2).
+          Placed above the per-session widgets on purpose: everything below this line
+          describes individual interviews, while this is the only thing on the page that
+          persists across all of them. It is the product's central claim, so it should not
+          be something the user has to scroll to find. */}
+      <KnowledgeMap />
 
       {/* Main content grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -22,6 +22,7 @@ import type { Message, AnswerEvaluation, GapMatrix, QuestionPlan, RoundType } fr
 import { VoiceRecorder } from './VoiceRecorder'
 import { InterviewerAvatar } from './InterviewerAvatar'
 import { ScorePill } from './ScorePill'
+import { ScoreBreakdownPanel } from '@/components/report/ScoreBreakdown'
 
 interface Props {
   session: {
@@ -57,8 +58,18 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
   const [completing, setCompleting] = useState(false)
   const [showExitDialog, setShowExitDialog] = useState(false)
   const [sessionStart] = useState(Date.now())
+  const [restoredDraft, setRestoredDraft] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  // Answers in progress are kept in the browser, keyed by session and question.
+  //
+  // Everything else here survives a reload already, because messages and mastery are
+  // written server-side per answer — but the answer *being typed* existed only in React
+  // state, so a stray Back click, a refresh or a closed tab destroyed minutes of work
+  // with no way to recover it. localStorage rather than the database on purpose: this
+  // saves on every keystroke, and a draft is worth nothing once submitted.
+  const draftKey = `prepsense:draft:${session.id}:${questionIndex}`
 
   const totalQuestions = questionPlan?.total_questions ?? 12
   const currentQuestion = messages.filter(m => m.role === 'interviewer').at(-1)
@@ -82,6 +93,42 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
     }
   }, [currentQuestion, isVoiceMode])
 
+  // Restore a draft for this question, if one was left behind.
+  useEffect(() => {
+    const saved = window.localStorage.getItem(draftKey)
+    if (saved) {
+      setAnswer(saved)
+      setRestoredDraft(true)
+    }
+    // Keyed on the question, so moving to the next one clears the restored-notice.
+  }, [draftKey])
+
+  // Save on every change, debounced. Writing synchronously on each keystroke is
+  // wasteful; waiting longer than this risks losing the last sentence typed before a
+  // navigation, which is the case this exists for.
+  useEffect(() => {
+    if (!answer) return
+    const timeout = setTimeout(() => {
+      try {
+        window.localStorage.setItem(draftKey, answer)
+      } catch {
+        // Quota exceeded or storage disabled (private browsing). Losing the draft is
+        // bad; taking down the interview over it would be worse.
+      }
+    }, 400)
+    return () => clearTimeout(timeout)
+  }, [answer, draftKey])
+
+  // The browser's own "are you sure" prompt. It is the only thing that can intercept a
+  // Back click, a tab close or a reload — none of which React routing sees.
+  useEffect(() => {
+    const warn = (event: BeforeUnloadEvent) => {
+      if (answer.trim() && !submitting) event.preventDefault()
+    }
+    window.addEventListener('beforeunload', warn)
+    return () => window.removeEventListener('beforeunload', warn)
+  }, [answer, submitting])
+
   const handleSubmit = useCallback(async (submittedAnswer?: string) => {
     const text = submittedAnswer ?? answer
     if (!text.trim() || submitting) return
@@ -99,6 +146,7 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
         question_type: currentQuestion?.question_type ?? 'general',
         question_tags: currentQuestion?.question_tags ?? [],
         question_index: questionIndex,
+        time_taken_seconds: timer,
       }),
     })
 
@@ -124,6 +172,10 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
     setLastEval(data.evaluation)
     setAnswer('')
     setTimer(0)
+    setRestoredDraft(false)
+    // Only once the answer is safely persisted server-side. Clearing earlier would open
+    // a window where a failed request loses the text it was meant to protect.
+    window.localStorage.removeItem(draftKey)
 
     const newMessages = [...messages, candidateMsg]
 
@@ -147,7 +199,7 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
       setIsTimerRunning(true)
       if (isVoiceMode) speakQuestion(data.next_question.content)
     }
-  }, [answer, submitting, session.id, currentQuestion, questionIndex, messages, timer, isVoiceMode])
+  }, [answer, submitting, session.id, currentQuestion, questionIndex, messages, timer, isVoiceMode, draftKey])
 
   const handleComplete = async (finalMessages: Message[]) => {
     setCompleting(true)
@@ -278,8 +330,13 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
           </div>
         </div>
 
-        {/* Right: Answer input */}
-        <div className="hidden lg:flex lg:w-1/2 flex-col p-6">
+        {/* Right: Answer input.
+            `overflow-hidden` + `min-h-0` below are load-bearing, not decoration. A flex
+            child defaults to min-height:auto, so it refuses to shrink below its content:
+            once the "last answer summary" panel appeared, the column grew taller than the
+            viewport and pushed the submit button off-screen with nothing scrollable to
+            reach it. The answer was effectively unsubmittable. */}
+        <div className="hidden lg:flex lg:w-1/2 flex-col p-6 overflow-hidden">
           {/* Timer */}
           <div className="flex items-center gap-2 mb-4">
             <Clock className="w-4 h-4 text-slate-400" />
@@ -296,11 +353,13 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
               disabled={submitting}
             />
           ) : (
-            <div className="flex-1 flex flex-col gap-3">
+            <div className="flex-1 flex flex-col gap-3 min-h-0">
               <Textarea
                 ref={textareaRef}
                 placeholder="Type your answer here... Be specific, use examples, and structure with STAR (Situation, Task, Action, Result)."
-                className="flex-1 min-h-48 bg-white/5 border-white/10 text-white placeholder:text-slate-600 text-sm leading-relaxed resize-none"
+                // min-h-0 lets it shrink; a long answer scrolls inside the box rather
+                // than growing the column and displacing the controls below it.
+                className="flex-1 min-h-0 overflow-y-auto bg-white/5 border-white/10 text-white placeholder:text-slate-600 text-sm leading-relaxed resize-none"
                 value={answer}
                 onChange={e => setAnswer(e.target.value)}
                 onKeyDown={e => {
@@ -310,7 +369,7 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
               />
 
               {/* Word count + hints */}
-              <div className="flex items-center justify-between text-xs text-slate-500">
+              <div className="shrink-0 flex items-center justify-between text-xs text-slate-500">
                 <span className={wordCount > 0 ? (
                   wordCount < 80 ? 'text-rose-400'
                   : wordCount <= 300 ? 'text-emerald-400'
@@ -321,10 +380,44 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
                 <span>Ideal: 150-300 words · ⌘Enter to submit</span>
               </div>
 
+              {restoredDraft && (
+                <div className="shrink-0 flex items-center justify-between gap-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2 text-xs text-emerald-300">
+                  <span>Restored the answer you were writing.</span>
+                  <button
+                    type="button"
+                    className="text-emerald-200/70 hover:text-emerald-100 underline"
+                    onClick={() => {
+                      setAnswer('')
+                      setRestoredDraft(false)
+                      window.localStorage.removeItem(draftKey)
+                    }}
+                  >
+                    Clear it
+                  </button>
+                </div>
+              )}
+
+              {/* Capped and independently scrollable: this panel is the one whose height
+                  varies with the model's output, so left uncapped it is what pushes the
+                  submit button out of reach. */}
               {lastEval && (
-                <div className="rounded-lg bg-white/5 border border-white/10 p-3 text-xs text-slate-400">
+                <div className="shrink-0 max-h-32 overflow-y-auto rounded-lg bg-white/5 border border-white/10 p-3 text-xs text-slate-400">
                   <p className="font-semibold text-slate-300 mb-1">Last answer summary:</p>
                   <p>{lastEval.answer_summary}</p>
+                  {lastEval.score_breakdown && (
+                    <details className="mt-2">
+                      <summary className="cursor-pointer text-primary hover:underline">
+                        Why did I score {lastEval.depth_score} on depth?
+                      </summary>
+                      <div className="mt-2">
+                        <ScoreBreakdownPanel
+                          breakdown={lastEval.score_breakdown}
+                          starScore={lastEval.star_compliance}
+                          depthScore={lastEval.depth_score}
+                        />
+                      </div>
+                    </details>
+                  )}
                   {lastEval.strong_answer_example && (
                     <details className="mt-1">
                       <summary className="cursor-pointer text-primary hover:underline">Show strong answer example</summary>
@@ -335,7 +428,7 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
               )}
 
               <Button
-                className="bg-primary hover:bg-primary/90 gap-2 h-12"
+                className="shrink-0 bg-primary hover:bg-primary/90 gap-2 h-12"
                 onClick={() => handleSubmit()}
                 disabled={submitting || !answer.trim()}
               >
@@ -371,13 +464,29 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
       <AlertDialog open={showExitDialog} onOpenChange={setShowExitDialog}>
         <AlertDialogContent className="bg-card border-white/10">
           <AlertDialogHeader>
-            <AlertDialogTitle>Exit interview?</AlertDialogTitle>
+            <AlertDialogTitle>Leave this interview?</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-400">
-              Your progress will be saved but the session will be marked as abandoned. You won&apos;t receive a full report.
+              <span className="block mb-2">
+                <strong className="text-slate-200">Pause</strong> keeps the session open — every
+                answer you have given is already saved, and you can resume from your dashboard
+                exactly where you left off.
+              </span>
+              <span className="block">
+                <strong className="text-rose-300">End now</strong> closes the session for good and
+                scores only what you have answered so far.
+              </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
+          <AlertDialogFooter className="gap-2 sm:gap-2">
             <AlertDialogCancel className="border-white/20 hover:bg-white/10">Keep going</AlertDialogCancel>
+            {/* Pause is deliberately the plain navigation: the session row stays
+                `in_progress`, so nothing needs to be written for it to be resumable. */}
+            <AlertDialogAction
+              className="bg-white/10 hover:bg-white/20 border border-white/20"
+              onClick={() => router.push('/dashboard')}
+            >
+              Pause &amp; exit
+            </AlertDialogAction>
             <AlertDialogAction
               className="bg-rose-600 hover:bg-rose-700"
               onClick={async () => {
@@ -392,7 +501,7 @@ export function InterviewRoom({ session, initialMessages, jd, questionPlan }: Pr
                 router.push('/dashboard')
               }}
             >
-              Exit
+              End now
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
