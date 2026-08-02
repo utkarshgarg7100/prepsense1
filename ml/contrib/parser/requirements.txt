@@ -1,0 +1,13 @@
+# Model 5 — resume/JD understanding (Friend C)
+#
+# Dependencies for THIS model only. Do not add these to ml/requirements.txt —
+# that file is shared, and three different deep-learning stacks in one file is
+# how a working environment stops installing for everybody.
+#
+# Install:  cd ml && .venv/bin/pip install -r contrib/parser/requirements.txt
+
+# Embedding-based matching. sentence-transformers pulls torch.
+sentence-transformers>=3.0
+
+# Already in the core requirements — listed for clarity, do not re-pin:
+# scikit-learn, spacy

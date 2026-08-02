@@ -1,0 +1,13 @@
+# Model 2 — knowledge tracing (Friend B)
+#
+# Dependencies for THIS model only. Do not add these to ml/requirements.txt —
+# that file is shared, and three different deep-learning stacks in one file is
+# how a working environment stops installing for everybody.
+#
+# Install:  cd ml && .venv/bin/pip install -r contrib/knowledge_tracing/requirements.txt
+
+# DKT is a small recurrent net. torch is already pulled in by the core
+# requirements (via stable-baselines3), so pin it here only if you need a
+# different version — and raise that before installing.
+scikit-learn>=1.5   # AUC and the train/test split for the evaluation harness
+pandas>=2.2         # loading knowledge_history exports

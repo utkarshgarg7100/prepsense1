@@ -1,0 +1,14 @@
+# Model 3 — answer evaluation (Friend A)
+#
+# Dependencies for THIS model only. Do not add these to ml/requirements.txt —
+# that file is shared, and three different deep-learning stacks in one file is
+# how a working environment stops installing for everybody.
+#
+# Install:  cd ml && .venv/bin/pip install -r contrib/evaluation/requirements.txt
+
+# Start simple. TF-IDF + logistic regression may be enough; escalate only if it is not.
+scikit-learn>=1.5
+
+# Add a transformer stack here only if the simple baseline is measurably insufficient.
+# transformers>=4.44
+# torch>=2.4
