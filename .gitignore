@@ -32,6 +32,13 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...but the template must be committed, or a new collaborator has no way to know which
+# keys the app needs. It contains placeholders only — never real values.
+!.env.example
+
+# Local editor / assistant tooling. Personal setup, not project code — committing it
+# pushes one developer's launch config onto everyone else.
+.claude/
 
 # vercel
 .vercel
@@ -39,3 +46,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.tmp-parity/
+
+# ─── Python / ml ──────────────────────────────────────────────────────────
+# The venv is 1.3GB (torch alone is ~800MB) and is rebuilt from ml/requirements.txt.
+ml/.venv/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Intermediate PPO checkpoints — ~30MB per run and regenerable by retraining. The
+# *final* policies (ml/models/*.zip and their vecnormalize .pkl) ARE committed: the app
+# loads ppo_v6_seed0.zip at runtime, so a clone without them cannot serve the policy.
+# TensorBoard logs in ml/runs/ are committed too — they are the record of every training
+# run, including the failed ones, which the write-up depends on.
+ml/models/*_checkpoints/
