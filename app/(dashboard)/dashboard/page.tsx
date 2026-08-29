@@ -56,10 +56,10 @@ export default async function DashboardPage() {
     // so a session left mid-way was invisible and effectively lost.
     supabase
       .from('sessions')
-      .select('id, round_type, created_at, job_descriptions(company_name, role_subtype)')
+      .select('id, round_type, started_at, job_descriptions(company_name, role_subtype)')
       .eq('user_id', uid)
       .eq('status', 'in_progress')
-      .order('created_at', { ascending: false })
+      .order('started_at', { ascending: false })
       .limit(3),
   ]) : [
     { data: null }, { data: [] }, { data: null },
@@ -120,12 +120,12 @@ export default async function DashboardPage() {
                       {jd?.company_name ?? 'General'}
                       {jd?.role_subtype ? ` — ${jd.role_subtype}` : ''}
                       {' · started '}
-                      {new Date(session.created_at).toLocaleDateString()}
+                      {new Date(session.started_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 <Button size="sm" className="bg-primary hover:bg-primary/90 shrink-0">
-                  Resume
+                  Continue
                 </Button>
               </div>
             </Link>

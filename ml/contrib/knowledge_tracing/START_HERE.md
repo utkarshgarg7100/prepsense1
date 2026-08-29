@@ -107,9 +107,13 @@ git commit -m "Add evaluation harness"
 git push -u origin feature/kt-model
 ```
 
-Then open a **Pull Request** on GitHub. The owner reviews and merges. Nothing reaches
-`main` without that — not distrust, just that a broken `main` costs four people their demo
-rather than one.
+Then open a **Pull Request** on GitHub. The owner reviews and merges.
+
+**Important: nothing technically stops you pushing to `main`.** Branch protection needs a
+paid GitHub plan, so this is an agreement rather than a setting. Never `git push` while
+`main` is checked out — run `git branch` first if unsure. If you push to `main` by
+accident, say so in the group chat immediately; it is a ten-minute fix, and what costs
+real time is somebody else pulling the mistake before they hear about it.
 
 Keep PRs **small and one-idea**. "Add the harness" and "add the model" are two PRs; if a
 merge breaks something, small PRs tell you which one did it.

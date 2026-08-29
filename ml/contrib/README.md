@@ -12,6 +12,10 @@ the app rather than replacing it. See `ml/README.md` for why that rule exists.
 Model 1 (the RL curriculum controller) is the repo owner's and lives in `ml/` root — it is
 already trained and integrated.
 
+New to the project? Read **`TEAM_BRIEFING.md`** at the repo root first — it explains what
+PrepSense is, how the five models connect, and why your model runs beside an existing one
+rather than replacing it.
+
 ## Each folder contains
 
 | File | What it is |

@@ -901,6 +901,77 @@ Core suite is **120 tests**, not the ~109 quoted in older docs; corrected across
 
 ---
 
+### Day 3 — Interview history: a schema bug hiding every past session
+
+**The bug.** `sessions` has no `created_at` column — it is `started_at` (and
+`total_duration_seconds`, not `duration_seconds`). `history/page.tsx` ordered by
+`created_at`, so Postgres rejected the whole query, the code discarded `error`, `data` came
+back null, and the page rendered its "No sessions yet" empty state. Six real interviews,
+including two completed ones with full transcripts and scores, were unreachable.
+
+**The failure mode is the lesson**, not the typo: a broken query and a brand-new account
+looked identical, because the error was thrown away. The page now reads `error` and shows
+it. Verified directly against the database — ordering by `created_at` returns
+`column sessions.created_at does not exist`; by `started_at`, 6 rows.
+
+The same mistake was in two more places, both silently:
+
+- `dashboard/page.tsx` — the *"resume an unfinished interview"* card queried the same
+  bad column, so it never once appeared, despite four in-progress sessions existing.
+- `ReportView.tsx` — `session.created_at` rendered "Invalid Date" and the duration never
+  displayed.
+
+**No new analysis UI was needed.** The report page already renders the full transcript with
+per-answer score breakdowns (`MessageThread` + `ScoreBreakdownPanel`). The feature the user
+asked for existed; it was unreachable because the only route to it was broken.
+
+**What was added** (`components/history/HistoryList.tsx`): summary stats, filter by status
+and round, search by company/role, **Resume** for unfinished interviews (answers persist
+per question, so they are genuinely resumable), and delete with optimistic removal and
+rollback on failure. Stats deliberately describe all sessions rather than the current
+filter — a summary that changes as you type is a summary of nothing.
+
+Delete goes through the browser client and relies on the `sessions` RLS policy, which
+`scripts/test-rls.ts` now covers.
+
+---
+
+### Day 2 — RLS actually tested, and the bypass turned off
+
+`NEXT_PUBLIC_DEV_BYPASS` is now **`false`** in `.env.local`. Every previous live run had it
+on, which skips auth *and* routes writes through the service-role client — so no RLS policy
+in migrations 007, 010 or 011 had ever been exercised. They were believed-correct.
+
+**A manual click-through cannot test isolation** — you would have to be two people at once.
+So `scripts/test-rls.ts` creates two real users, signs both in through the *anon* client
+(the same path a real logged-in request takes) and asserts neither can reach the other's
+rows. Service role is used only to create and destroy the test users. **16/16.**
+
+Covered: `knowledge_state`, `knowledge_history`, `job_descriptions` (migration 010's
+privacy fix, the one that mattered), `sessions`; read, forge, update and delete; plus the
+logged-out case. Two guards against a vacuous pass — seeded JDs must stay readable by
+everyone (or nobody can start an interview), and A must still see A's own data (a
+too-tight policy breaks the app for everybody).
+
+That last guard earned its place immediately: the **first run reported 9/15 passing, but
+several of those passes were meaningless** — user A had failed to write anything, so B was
+"correctly" reading an empty table. The failures were the test guessing the schema wrong
+(`role_title` does not exist, `round_type` has no `behavioral`). Worth remembering: a
+negative security assertion is only as good as the positive write it depends on.
+
+Unauthenticated checks with the bypass off: `/dashboard`, `/history`, `/profile` all 307 to
+`/login`; `POST /api/interview/start` and `GET /api/knowledge-map` both 401.
+
+**Latent bug found, not fixed.** `handle_new_user` (migration 005) ends with
+`EXCEPTION WHEN OTHERS THEN RETURN NEW` — it swallows its own errors, so a failed profile
+insert is silent. A user created outside `app/api/auth/signup/route.ts` (admin API, OAuth,
+magic link, the Supabase dashboard) gets an auth user with **no profile row**, and every
+foreign key to `profiles` then fails at runtime with no clue as to why. Currently masked
+because the signup route upserts the profile itself. Not touched here — it is a Phase 7
+item, and mid-verification is the wrong time to change a signup trigger.
+
+---
+
 ## Phases 5 and 6 closed
 
 Both exit criteria passed on live runs: the knowledge map visibly moved after a completed

@@ -169,10 +169,10 @@ export function ReportView({ session, scores, messages, markers, speech }: Props
             {jd?.company_name ?? 'General'} — {jd?.role_subtype ?? 'Interview'}
           </h1>
           <p className="text-sm text-slate-400">
-            {new Date(session.created_at).toLocaleDateString('en-IN', {
+            {new Date(session.started_at).toLocaleDateString('en-IN', {
               day: 'numeric', month: 'long', year: 'numeric',
             })} · {session.round_type} round
-            {session.duration_seconds ? ` · ${Math.round(session.duration_seconds / 60)}m` : ''}
+            {session.total_duration_seconds ? ` · ${Math.round(session.total_duration_seconds / 60)}m` : ''}
           </p>
         </div>
         <Link href="/practice">

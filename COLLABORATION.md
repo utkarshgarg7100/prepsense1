@@ -13,7 +13,9 @@ Each brief lives in `BRIEF.md` inside the relevant folder. Start with `ml/README
 
 ## The one rule
 
-**Nothing reaches `main` without a pull request the owner approves.**
+**Nothing reaches `main` without a pull request the owner approves.** This is an agreement,
+not a GitHub setting — see "This is enforced by agreement" below for why, and what that
+means for you.
 
 Not because anyone is untrusted — because this repo has to be demo-able every single day
 between now and the viva. A broken `main` on the wrong morning costs four people their
@@ -91,18 +93,28 @@ alone at 2am:
 - Adding a dependency to `requirements.txt` or `package.json`
 - Anything under `app/`, `lib/`, or `components/`
 
-## Repo settings the owner turns on
+## This is enforced by agreement, not by GitHub
 
-On GitHub → Settings → Branches → add a rule for `main`:
+Be aware of what is actually stopping a bad push to `main`: **nothing technical.** You all
+have write access, so `git push` to `main` will succeed if you type it.
 
-- ☑️ Require a pull request before merging
-- ☑️ Require 1 approval
-- ☑️ Do not allow force pushes
-- ☑️ Do not allow deletions
+This is not an oversight. GitHub gates branch protection on private repositories behind a
+paid plan, and personal-account repositories have only one collaborator level — write.
+The alternatives were making the repo public before the paper is submitted, or moving to
+an organisation with read-only members and forks. For a four-person team that all knows
+each other, the agreement is the pragmatic choice.
 
-Without these, GitHub lets anyone with write access push straight to `main` and every rule
-above becomes a polite suggestion. With them on, it is mechanically impossible to bypass
-review.
+So the rule stands on trust:
+
+- **Never `git push` while `main` is checked out.** Run `git branch` first if unsure.
+- **Everything goes through a pull request**, reviewed by the owner.
+- If you do push to `main` by accident, **say so in the group chat immediately.** It is a
+  ten-minute fix. What costs real time is somebody else pulling the mistake before they
+  hear about it.
+
+If the owner's GitHub Student Developer Pack application comes through
+(`education.github.com/pack`, free Pro for students), branch protection can be switched on
+and this section replaced with a ruleset.
 
 ## Two things that must never be committed
 

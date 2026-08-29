@@ -22,7 +22,9 @@ Nothing downstream can be trusted while the app returns fake AI scores.
 - [x] Wire speech-to-text to the same free provider (`transcribe/route.ts`)
 - [x] Confirm migration `005` is applied in Supabase
 - [ ] Fix `PROJECT_CONTEXT.md`: Next.js **16.2.9 / React 19.2.4**, not 14
-- [ ] Run once with `NEXT_PUBLIC_DEV_BYPASS=false` to catch RLS bugs the bypass hides
+- [x] Run with `NEXT_PUBLIC_DEV_BYPASS=false` to catch RLS bugs the bypass hides —
+      `scripts/test-rls.ts` (16/16) plus unauthenticated route checks; the flag is now
+      `false` by default. Remaining: one human logged-in interview end to end.
 
 **Exit:** a real interview runs with real AI scores, typed *and* spoken, start to report.
 
@@ -156,7 +158,9 @@ policy, and killing the Python service does not break the interview.
 
 ## Phase 7 — Harden and ship · *2–3 days* · ⬜
 
-- [ ] Full flow with `NEXT_PUBLIC_DEV_BYPASS=false` and `MOCK_AI=false`
+- [x] ~~Auth and RLS enforced with the bypass off~~ — `scripts/test-rls.ts` 16/16,
+      protected pages 307 to /login, APIs 401. Still to do: a full *human* interview
+      run signed in as a real user.
 - [ ] Two different users get genuinely different question sequences
 - [ ] Errors surface as UI messages, never blank screens
 - [ ] Deploy (Vercel + a small host for `/infer`)

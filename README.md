@@ -24,6 +24,7 @@ self-contained and you do not need anything else on this list to begin.
 
 | File | What it is |
 |---|---|
+| `TEAM_BRIEFING.md` | **Start here if you are new to the project** — what it is, the five models, how they connect, and what is honestly claimed |
 | `PROGRESS.md` | What is built and why — the running decision log. The most useful file here. |
 | `PHASES.md` | The build plan, and each phase's exit criterion |
 | `RESEARCH_LOG.md` | Every experiment, including the failed ones. **Finding F9 is the project's central result.** |
@@ -137,6 +138,7 @@ of them verify behaviour against the live database or a live model:
 ```bash
 npx tsc --noEmit                              # typecheck (must be clean)
 npx tsx scripts/test-jd-extract.ts            # custom JD ingestion, offline
+npx tsx scripts/test-rls.ts                   # row-level security isolation (live DB)
 npx tsx scripts/test-reconcile.ts             # score reconciliation
 npx tsx scripts/test-chooser.ts               # RL fallback chain
 npx tsx scripts/test-knowledge-state.ts       # BKT persistence (live DB)
